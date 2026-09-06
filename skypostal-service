@@ -1,0 +1,22 @@
+const SKYPOSTAL_CONFIG = {
+  baseUrl: 'https://clientes.skypostal.com.py/api', //[cite: 3]
+  token: 'SEU_BEARER_TOKEN_AQUI' // Cole o token fornecido pela SkyPostal[cite: 3]
+};
+
+// Headers padrão com autenticação[cite: 3]
+function getHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': `Bearer ${SKYPOSTAL_CONFIG.token}` //[cite: 3]
+  };
+}
+
+// 1. Obter Cidades[cite: 3]
+async function getCiudades() {
+  const response = await fetch(`${SKYPOSTAL_CONFIG.baseUrl}/ciudades`, { //[cite: 3]
+    method: 'GET',
+    headers: getHeaders()
+  });
+  return await response.json();
+}
