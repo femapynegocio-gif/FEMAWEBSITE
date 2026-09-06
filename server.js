@@ -44,7 +44,25 @@ app.get('/api/skypostal/calculadora', async (req, res) => {
     res.status(err.response?.status || 500).json(err.response?.data || { message: err.message });
   }
 });
+async function fazerRequisicaoSegura(url, options = {}) {
+  try {
+    const response = await fetch(url, options);
 
+    // Captura páginas HTML de erro retornadas pelo servidor (como 404/500)
+    const contentType = response.headers.get("content-type");
+    if (!response.ok || (contentType && !contentType.includes("application/json"))) {
+      const errorText = await response.text();
+      console.error("Resposta não-JSON do servidor:", errorText);
+      throw new Error(`Erro na requisição (${response.status}): Servidor retornou HTML ao invés de JSON.`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Falha no envio:", error.message);
+    alert(`Erro ao processar: ${error.message}`);
+    return null;
+  }
+}
 // 3. Criar Envio na SkyPostal
 app.post('/api/skypostal/servicio', async (req, res) => {
   try {
