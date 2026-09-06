@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>FEMA - Panel de Administración</title>
+  <style>
+    body { font-family: sans-serif; background: #121212; color: #fff; padding: 20px; }
+    .card { background: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+    .modal { background: #2a2a2a; padding: 20px; border-radius: 8px; max-width: 500px; margin: auto; }
+    input, select, button { padding: 10px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+    button { background: #b71c1c; color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
+    button:hover { background: #d32f2f; }
+    .frete-box { background: #1e1e1e; padding: 10px; border-radius: 5px; margin: 10px 0; border: 1px dashed #555; }
+  </style>
+</head>
+<body>
+
+  <h1>Revisión de Pedidos</h1>
+
+  <!-- Modal de Revisión del Pedido con Calculadora de Frete -->
+  <div class="modal">
+    <h3>Revisión de Pedido (Admin)</h3>
+    <div id="pedido-detalles">
+      <p><strong>Cliente:</strong> igortrampo007@gmail.com</p>
+      <p><strong>ID Pedido:</strong> #ped_1788700604154</p>
+      <p><strong>Ciudad ID Destino:</strong> <span id="city-id">1001</span></p>
+    </div>
+
+    <div class="frete-box">
+      <h4>Calculadora de Envío (SkyPostal)</h4>
+      <label>Tipo de Envío:</label>
+      <select id="tipo-envio">
+        <option value="1">Estándar</option>
+        <option value="2">Express</option>
+      </select>
+
+      <label>Peso del Paquete (Kg):</label>
+      <input type="number" id="peso-paquete" value="1.0" step="0.1" min="0.1">
+
+      <button onclick="calcularFrete()">Calcular Costo de Frete</button>
+      <p id="resultado-frete" style="color: #4caf50; font-weight: bold;"></p>
+    </div>
+
+    <button onclick="procesarEnvioSkyPostal()">Procesar y Confirmar con SkyPostal</button>
+  </div>
+
+  <script>
+    // Substitua pela URL real do seu backend onde o server.js está rodando
+    const BACKEND_URL = "http://localhost:3000"; 
+
+    async function calcularFrete() {
+      const peso = document.getElementById('peso-paquete').value;
+      const tipoEnvio = document.getElementById('tipo-envio').value;
+      const cityId = document.getElementById('city-id').innerText;
+      const resEl = document.getElementById('resultado-frete');
+
+      resEl.innerText = "Calculando...";
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/skypostal/calculadora?tipo_de_envio=${tipoEnvio}&city_id=${cityId}&weight=${peso}`);
+        const data = await response.json();
+
+        if (data.data && data.data.amount) {
+          resEl.innerText = `Costo Estimado: ₲ ${data.data.amount}`;
+        } else {
+          resEl.innerText = "Error al calcular el frete.";
+        }
+      } catch (err) {
+        alert("Error de conexión con el backend: " + err.message);
+      }
+    }
+
+    async function procesarEnvioSkyPostal() {
+      const peso = parseFloat(document.getElementById('peso-paquete').value);
+      const tipoEnvio = parseInt(document.getElementById('tipo-envio').value);
+      const cityId = parseInt(document.getElementById('city-id').innerText);
+
+      const payload = {
+        tipo_de_envio: tipoEnvio,
+        weight: peso,
+        origin_name: "FEMA Depósito",
+        origin_phone: "0981000000",
+        origin_email: "fema.py.negocio@gmail.com",
+        origin_address: "Av. Principal 123",
+        origin_city_id: 1,
+        receiver_name: "Igor Santos",
+        receiver_phone: "34998193668",
+        receiver_address: "Rua maria da Cruz",
+        receiver_city_id: cityId
+      };
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/skypostal/servicio`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        if (result.data) {
+          alert(`¡Envío Creado con Éxito!\nTracking: ${result.data.tracking}\nID Servicio: ${result.data.id}`);
+        } else {
+          alert("Error: " + JSON.stringify(result));
+        }
+      } catch (err) {
+        alert("Error al procesar el envío: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>FEMA - Panel de Administración</title>
+  <style>
+    body { font-family: sans-serif; background: #121212; color: #fff; padding: 20px; }
+    .card { background: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+    .modal { background: #2a2a2a; padding: 20px; border-radius: 8px; max-width: 500px; margin: auto; }
+    input, select, button { padding: 10px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+    button { background: #b71c1c; color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
+    button:hover { background: #d32f2f; }
+    .frete-box { background: #1e1e1e; padding: 10px; border-radius: 5px; margin: 10px 0; border: 1px dashed #555; }
+  </style>
+</head>
+<body>
+
+  <h1>Revisión de Pedidos</h1>
+
+  <!-- Modal de Revisión del Pedido con Calculadora de Frete -->
+  <div class="modal">
+    <h3>Revisión de Pedido (Admin)</h3>
+    <div id="pedido-detalles">
+      <p><strong>Cliente:</strong> igortrampo007@gmail.com</p>
+      <p><strong>ID Pedido:</strong> #ped_1788700604154</p>
+      <p><strong>Ciudad ID Destino:</strong> <span id="city-id">1001</span></p>
+    </div>
+
+    <div class="frete-box">
+      <h4>Calculadora de Envío (SkyPostal)</h4>
+      <label>Tipo de Envío:</label>
+      <select id="tipo-envio">
+        <option value="1">Estándar</option>
+        <option value="2">Express</option>
+      </select>
+
+      <label>Peso del Paquete (Kg):</label>
+      <input type="number" id="peso-paquete" value="1.0" step="0.1" min="0.1">
+
+      <button onclick="calcularFrete()">Calcular Costo de Frete</button>
+      <p id="resultado-frete" style="color: #4caf50; font-weight: bold;"></p>
+    </div>
+
+    <button onclick="procesarEnvioSkyPostal()">Procesar y Confirmar con SkyPostal</button>
+  </div>
+
+  <script>
+    // Substitua pela URL real do seu backend onde o server.js está rodando
+    const BACKEND_URL = "http://localhost:3000"; 
+
+    async function calcularFrete() {
+      const peso = document.getElementById('peso-paquete').value;
+      const tipoEnvio = document.getElementById('tipo-envio').value;
+      const cityId = document.getElementById('city-id').innerText;
+      const resEl = document.getElementById('resultado-frete');
+
+      resEl.innerText = "Calculando...";
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/skypostal/calculadora?tipo_de_envio=${tipoEnvio}&city_id=${cityId}&weight=${peso}`);
+        const data = await response.json();
+
+        if (data.data && data.data.amount) {
+          resEl.innerText = `Costo Estimado: ₲ ${data.data.amount}`;
+        } else {
+          resEl.innerText = "Error al calcular el frete.";
+        }
+      } catch (err) {
+        alert("Error de conexión con el backend: " + err.message);
+      }
+    }
+
+    async function procesarEnvioSkyPostal() {
+      const peso = parseFloat(document.getElementById('peso-paquete').value);
+      const tipoEnvio = parseInt(document.getElementById('tipo-envio').value);
+      const cityId = parseInt(document.getElementById('city-id').innerText);
+
+      const payload = {
+        tipo_de_envio: tipoEnvio,
+        weight: peso,
+        origin_name: "FEMA Depósito",
+        origin_phone: "0981000000",
+        origin_email: "fema.py.negocio@gmail.com",
+        origin_address: "Av. Principal 123",
+        origin_city_id: 1,
+        receiver_name: "Igor Santos",
+        receiver_phone: "34998193668",
+        receiver_address: "Rua maria da Cruz",
+        receiver_city_id: cityId
+      };
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/skypostal/servicio`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        if (result.data) {
+          alert(`¡Envío Creado con Éxito!\nTracking: ${result.data.tracking}\nID Servicio: ${result.data.id}`);
+        } else {
+          alert("Error: " + JSON.stringify(result));
+        }
+      } catch (err) {
+        alert("Error al procesar el envío: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
