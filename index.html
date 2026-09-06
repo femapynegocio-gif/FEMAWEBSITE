@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="es-PY">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FEMA — Higiene y Bienestar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://blogger.googleusercontent.com/img/a/AVvXsEjcSHGA7JLX5GzyBomUWU_PhFNuwoJ0G60rWXmChj5qJHwa1uNJlO_5nCg5xYDuov2ZsxFzDso_MmclEtsiS-i4P08sY7Zk_7IVkIvkgCs-YYQlRblVha6UqySL5-6ytnvFkwYMfelEGSblD1D7gRdk4C-flbXLItQLGPc4ZBKVFBc_PF8S6QS2j-imq8f3=w478-h478">
+
+  <style>
+    :root {
+      --rojo: #E4283C;
+      --negro: #1A1A1A;
+      --gris-oscuro: #2B2B2B;
+      --gris-medio: #6B6B6B;
+      --gris-suave: #F4F2EE;
+      --blanco: #FFFFFF;
+      --verde: #25D366;
+      --borde-color: #ECE8E1;
+
+      --bg-principal: var(--blanco);
+      --bg-tarjeta: var(--blanco);
+      --texto-principal: var(--gris-oscuro);
+      --texto-secundario: var(--gris-medio);
+      --bg-header: var(--blanco);
+      --bg-hero: var(--negro);
+
+      --fuente-display: 'Poppins', sans-serif;
+      --fuente-texto: 'Inter', sans-serif;
+
+      --radio: 14px;
+      --sombra: 0 4px 18px rgba(26,26,26,0.08);
+      --sombra-fuerte: 0 12px 32px rgba(26,26,26,0.18);
+    }
+
+    body.dark-mode {
+      --bg-principal: #121212;
+      --bg-tarjeta: #1E1E1E;
+      --texto-principal: #F4F2EE;
+      --texto-secundario: #A0A0A0;
+      --bg-header: #1A1A1A;
+      --bg-hero: #000000;
+      --gris-suave: #2A2A2A;
+      --negro: #FFFFFF;
+      --borde-color: #333333;
+    }
+
+    *{box-sizing:border-box; margin:0; padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--fuente-texto); color:var(--texto-principal); background:var(--bg-principal); transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden;}
+    img{max-width:100%; display:block;}
+    button{font-family:inherit; cursor:pointer; border:none; background:none;}
+
+    header{position:sticky; top:0; z-index:40; background:var(--bg-header); border-bottom:1px solid var(--borde-color); width: 100%;}
+    .barra-superior{display:flex; align-items:center; justify-content:space-between; padding:12px 16px; max-width:1200px; margin:0 auto; gap:12px; width: 100%; flex-wrap: wrap;}
+    
+    .logo-wrap{cursor:pointer; display:flex; align-items:center; gap:8px; text-decoration:none;}
+    .logo-svg{height:38px; width:auto;}
+    .logo-text{font-family:var(--fuente-display); font-weight:800; font-size:22px; letter-spacing:1px; color:var(--texto-principal);}
+
+    .buscador{flex:1; min-width: 140px; max-width:380px; display:flex; align-items:center; gap:8px; background:var(--gris-suave); border-radius:999px; padding:8px 14px;}
+    .buscador input{border:none; background:none; outline:none; width:100%; font-size:13px; color:var(--texto-principal);}
+
+    .acciones-header{display:flex; align-items:center; gap:8px; position:relative;}
+    .theme-toggle{background:var(--gris-suave); border:1px solid var(--borde-color); padding:6px 10px; border-radius:50%; font-size:14px;}
+    
+    .dropdown-container{position:relative;}
+    .btn-header-icon{display:flex; align-items:center; gap:4px; background:var(--gris-suave); padding:6px 10px; border-radius:999px; font-weight:600; font-size:12px; font-family:var(--fuente-display); color:var(--texto-principal); white-space: nowrap;}
+    .dropdown-menu{position:absolute; right:0; top:calc(100% + 8px); background:var(--bg-tarjeta); border:1px solid var(--borde-color); border-radius:12px; box-shadow:var(--sombra-fuerte); width:240px; display:none; flex-direction:column; z-index:100; overflow:hidden;}
+    .dropdown-menu.activo{display:flex;}
+    .dropdown-item{padding:12px 16px; font-size:13px; color:var(--texto-principal); text-decoration:none; display:flex; align-items:center; gap:10px; cursor:pointer; border-bottom:1px solid var(--borde-color);}
+    .dropdown-item:last-child{border-bottom:none;}
+    .dropdown-item:hover{background:var(--gris-suave);}
+    
+    .badge-notif{background:var(--rojo); color:#fff; font-size:10px; font-weight:700; border-radius:999px; padding:2px 6px; position:absolute; top:-2px; right:-2px;}
+
+    .franja-categorias{display:flex; gap:8px; overflow-x:auto; padding:10px 16px; max-width:1200px; margin:0 auto; scrollbar-width:none; width: 100%; -webkit-overflow-scrolling: touch;}
+    .franja-categorias::-webkit-scrollbar { display: none; }
+    .chip-cat{padding:8px 14px; border-radius:999px; font-family:var(--fuente-display); font-weight:600; font-size:12px; background:var(--gris-suave); color:var(--texto-principal); white-space:nowrap; flex-shrink: 0; cursor:pointer;}
+    .chip-cat.activo{background:var(--rojo); color:#fff;}
+
+    .hero-banner-section{background:var(--bg-hero); padding:12px; color:#fff; position:relative; overflow:hidden; width: 100%;}
+    .banner-container{max-width:1200px; margin:0 auto; position:relative; height:200px; border-radius:var(--radio); overflow:hidden; width: 100%;}
+    .banner-slide{position:absolute; inset:0; opacity:0; transition:opacity 0.5s ease; display:flex; align-items:center; justify-content:space-between; padding:20px; background-size:cover; background-position:center;}
+    .banner-slide.activo{opacity:1;}
+    .banner-content{max-width:100%; z-index:2;}
+    .banner-content h2{font-family:var(--fuente-display); font-size:20px; margin-bottom:6px; color:#FFF; line-height: 1.2;}
+    .banner-content p{font-size:12px; margin-bottom:12px; color:#DDD;}
+    .btn-banner{display:inline-block; background:var(--rojo); color:#FFF; padding:8px 14px; border-radius:8px; font-weight:700; text-decoration:none; font-family:var(--fuente-display); font-size: 12px;}
+    .banner-nav{position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:3;}
+    .banner-dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.4); cursor:pointer;}
+    .banner-dot.activo{background:var(--rojo);}
+
+    .seccion-productos{padding:20px 16px 90px; max-width:1200px; margin:0 auto; width: 100%;}
+    .titulo-seccion{font-family:var(--fuente-display); font-weight:700; font-size:13px; color:var(--texto-secundario); letter-spacing:.08em; margin-bottom:16px;}
+    
+    .grid-productos{display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; width: 100%;}
+
+    .tarjeta{background:var(--bg-tarjeta); border:1px solid var(--borde-color); border-radius:var(--radio); overflow:hidden; display:flex; flex-direction:column; position:relative; width: 100%;}
+    .badge-frete-gratis{position:absolute; top:8px; left:8px; z-index:10; background:#25D366; color:#FFF; font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px; font-family:var(--fuente-display);}
+    .btn-fav-card{position:absolute; top:8px; right:8px; z-index:10; background:rgba(255,255,255,0.8); border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:14px;}
+    .btn-fav-card.activo{background:var(--rojo); color:#fff;}
+
+    .media-producto{position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--gris-suave); cursor:pointer;}
+    .media-producto img.foto-prod{width:100%; height:100%; object-fit:cover;}
+    .btn-nav-slider{position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; z-index:5;}
+    .btn-nav-slider.prev{left:4px;} .btn-nav-slider.next{right:4px;}
+
+    .info-tarjeta{padding:10px; display:flex; flex-direction:column; gap:6px; flex:1;}
+    .nombre-producto{font-family:var(--fuente-display); font-weight:600; font-size:13px; color:var(--texto-principal); line-height: 1.2; cursor:pointer;}
+    .tag-aroma{font-size:10px; color:var(--rojo); font-weight:600;}
+    .desc-corta{font-size:11px; color:var(--texto-secundario); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+
+    .precio-box{display:flex; align-items:center; gap:6px; margin:4px 0;}
+    .precio-original{font-size:11px; text-decoration:line-through; color:var(--texto-secundario);}
+    .precio-actual{font-family:var(--fuente-display); font-size:13px; font-weight:700; color:var(--rojo);}
+
+    .selector-aromas{display:flex; gap:4px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling: touch;}
+    .selector-aromas::-webkit-scrollbar { display: none; }
+    .chip-aroma{font-size:9px; padding:2px 6px; border-radius:10px; border:1px solid var(--borde-color); white-space:nowrap; background:var(--gris-suave); flex-shrink: 0;}
+    .chip-aroma.activo{border-color:var(--rojo); color:var(--rojo); font-weight:700;}
+
+    .fila-cantidad-carrito{margin-top:auto; display:flex; flex-direction:column; gap:6px; padding-top:4px;}
+    .selector-cant{display:flex; align-items:center; justify-content:space-between; border:1px solid var(--borde-color); border-radius:6px;}
+    .selector-cant button{width:26px; height:28px; font-weight:700; color:var(--texto-principal);}
+    .selector-cant span{font-family:var(--fuente-display); font-size:11px;}
+    .btn-agregar{width:100%; background:var(--rojo); color:#FFF; font-family:var(--fuente-display); font-weight:600; font-size:12px; height:30px; border-radius:6px;}
+
+    .fab-carrito{position:fixed; bottom:22px; right:22px; z-index:50; width:56px; height:56px; border-radius:50%; background:var(--rojo); color:#fff; box-shadow:var(--sombra-fuerte); display:flex; align-items:center; justify-content:center; font-size:22px;}
+    .badge-carrito{position:absolute; top:-4px; right:-4px; background:var(--negro); color:#fff; font-size:11px; font-weight:700; min-width:20px; height:20px; border-radius:999px; display:flex; align-items:center; justify-content:center; border:2px solid #fff;}
+
+    .fullscreen-view{position:fixed; inset:0; background:var(--bg-principal); z-index:200; display:none; flex-direction:row;}
+    .fullscreen-view.activo{display:flex;}
+    .sidebar{width:260px; background:var(--gris-suave); border-right:1px solid var(--borde-color); padding:24px 16px; display:flex; flex-direction:column; gap:8px;}
+    .sidebar-user{padding-bottom:16px; border-bottom:1px solid var(--borde-color); margin-bottom:12px;}
+    .sidebar-user h3{font-family:var(--fuente-display); font-size:16px;}
+    .sidebar-user p{font-size:12px; color:var(--texto-secundario);}
+    .sidebar-btn{display:flex; align-items:center; gap:10px; padding:12px; border-radius:8px; font-family:var(--fuente-display); font-weight:600; font-size:13.5px; color:var(--texto-principal); width:100%; text-align:left;}
+    .sidebar-btn.activo{background:var(--rojo); color:#FFF;}
+    .fullscreen-content{flex:1; padding:24px; overflow-y:auto;}
+    .fullscreen-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; padding-bottom:12px; border-bottom:1px solid var(--borde-color);}
+
+    .dashboard-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:16px; margin-top:16px;}
+    .dash-card{background:var(--bg-tarjeta); border:1px solid var(--borde-color); border-radius:var(--radio); padding:16px; display:flex; flex-direction:column; gap:8px; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s;}
+    .dash-card:hover{transform:translateY(-3px); box-shadow:var(--sombra);}
+    .dash-card-icon{font-size:24px;}
+    .dash-card-title{font-family:var(--fuente-display); font-weight:700; font-size:15px;}
+    .dash-card-sub{font-size:12px; color:var(--texto-secundario);}
+
+    .overlay{position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:300; display:none; align-items:flex-end; justify-content:center;}
+    .overlay.activo{display:flex;}
+
+    .panel{background:var(--bg-tarjeta); color:var(--texto-principal); width:100%; max-width:480px; max-height:88vh; border-radius:20px 20px 0 0; overflow-y:auto; border: 1px solid var(--borde-color);}
+    .panel-gran-form{max-width:680px;}
+
+    .panel-header{position:sticky; top:0; background:var(--bg-tarjeta); z-index:2; display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid var(--borde-color);}
+    .btn-cerrar{width:32px; height:32px; border-radius:50%; background:var(--gris-suave); display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--texto-principal);}
+
+    .cuerpo-auth{padding:20px; display:flex; flex-direction:column; gap:12px;}
+    .btn-google{display:flex; align-items:center; justify-content:center; gap:10px; background:var(--gris-suave); border:1px solid var(--borde-color); padding:10px; border-radius:10px; font-weight:600; font-size:13.5px; color:var(--texto-principal);}
+    .btn-google img{width:18px; height:18px;}
+    .divisor-auth{text-align:center; position:relative; margin:6px 0;}
+    .divisor-auth span{background:var(--bg-tarjeta); padding:0 8px; font-size:12px; color:var(--texto-secundario); position:relative; z-index:1;}
+    .cuerpo-auth input, .form-admin input, .form-admin select, .form-admin textarea{width:100%; padding:10px 12px; border:1px solid var(--borde-color); border-radius:8px; background:var(--bg-principal); color:var(--texto-principal); margin-bottom:10px;}
+
+    .btn-principal{background:var(--rojo); color:#fff; padding:12px; border-radius:10px; font-family:var(--fuente-display); font-weight:600; font-size:14px; width:100%;}
+    .btn-secundario{background:var(--gris-suave); color:var(--texto-principal); padding:8px 12px; border-radius:8px; font-weight:600; font-size:12.5px;}
+
+    .tarjeta-pedido{border:1px solid var(--borde-color); border-radius:10px; padding:12px; margin-bottom:12px; background:var(--bg-principal); display:flex; flex-direction:column; gap:8px;}
+    .badge-estado{padding:3px 8px; border-radius:12px; font-size:11px; font-weight:700; text-transform:uppercase;}
+    .badge-estado.Pendente{background:#FFF3CD; color:#856404;}
+    .badge-estado.Aceptado{background:#D1ECF1; color:#0C5460;}
+    .badge-estado.EnEnvio{background:#CCE5FF; color:#004085;}
+    .badge-estado.Finalizado{background:#D4EDDA; color:#155724;}
+    .badge-estado.Cancelado{background:#F8D7DA; color:#721C24;}
+
+    .item-carrito{display:flex; align-items:center; gap:12px; padding:12px 18px; border-bottom:1px solid var(--borde-color);}
+    .item-carrito img{width:50px; height:50px; border-radius:8px; object-fit:cover;}
+    .resumen-carrito{padding:16px 18px; border-top:1px solid var(--borde-color);}
+    .btn-whatsapp{width:100%; background:var(--verde); color:#fff; height:48px; border-radius:12px; font-family:var(--fuente-display); font-weight:700; font-size:14.5px; display:flex; align-items:center; justify-content:center; gap:8px;}
+
+    .toast{position:fixed; bottom:96px; left:50%; transform:translateX(-50%) translateY(10px); background:var(--negro); color:var(--bg-principal); padding:11px 20px; border-radius:999px; font-size:13px; opacity:0; pointer-events:none; transition:all .25s ease; z-index:400; width: max-content; max-width: 90vw; text-align: center;}
+    .toast.mostrar{opacity:1; transform:translateX(-50%) translateY(0);}
+
+    footer{background:var(--bg-hero); color:#FFF; padding:28px 16px 20px; margin-top:20px; width: 100%;}
+    .footer-inner{max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; align-items:flex-start;}
+    .footer-logo{display:flex; align-items:center; gap:10px;}
+    .footer-copy{width:100%; text-align:center; font-size:11.5px; color:#AAA; margin-top:16px;}
+
+    .box-envio-info { border: 1px dashed var(--rojo); padding: 10px; border-radius: 8px; background: rgba(228, 40, 60, 0.05); margin-top: 8px; font-size: 12px; }
+
+    /* Estilos UX Modo Confirmación vs Edición */
+    .box-confirmacion-envio { background: var(--gris-suave); border: 1px solid var(--borde-color); border-radius: 10px; padding: 14px; margin-bottom: 12px; font-size: 13px; line-height: 1.5; }
+    .email-item-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--bg-principal); border: 1px solid var(--borde-color); border-radius: 8px; margin-bottom: 8px; }
+    .email-item-actions { display: flex; align-items: center; gap: 8px; }
+    .badge-status { padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 700; }
+    .badge-status.activo { background: #D4EDDA; color: #155724; }
+    .badge-status.inactivo { background: #F8D7DA; color: #721C24; }
+
+    @media(min-width: 600px) {
+      .grid-productos { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+      .info-tarjeta { padding: 14px; gap: 8px; }
+      .nombre-producto { font-size: 15px; }
+      .fila-cantidad-carrito { flex-direction: row; align-items: center; }
+      .selector-cant button { width: 28px; height: 32px; }
+      .selector-cant span { width: 24px; text-align: center; font-size: 12px; }
+      .btn-agregar { height: 32px; font-size: 13px; }
+      .banner-container { height: 280px; }
+      .banner-slide { padding: 40px; }
+      .banner-content h2 { font-size: 28px; margin-bottom: 10px; }
+      .banner-content p { font-size: 14px; margin-bottom: 18px; }
+      .btn-banner { padding: 10px 20px; font-size: 14px; }
+    }
+
+    @media(min-width:720px){ 
+      .overlay{align-items:center;}
+      .panel{border-radius:20px;}
+    }
+
+    @media(max-width: 768px) {
+      .fullscreen-view { flex-direction: column; }
+      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--borde-color); padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="barra-superior">
+    <div class="logo-wrap" id="logoTrigger" title="FEMA Catalogo (5 Clics para ADM)">
+      <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="38" cy="40" r="24" stroke="var(--texto-principal)" stroke-width="12"/>
+        <circle cx="62" cy="60" r="24" stroke="var(--rojo)" stroke-width="12"/>
+      </svg>
+      <span class="logo-text">FEMA</span>
+    </div>
+    <div class="buscador">
+      <span>🔍</span>
+      <input type="text" id="inputBusqueda" placeholder="Buscar producto...">
+    </div>
+    <div class="acciones-header">
+      <button class="theme-toggle" id="btnThemeToggle" title="Cambiar Tema">🌙</button>
+      
+      <div class="dropdown-container">
+        <button class="btn-header-icon" id="btnNotifHeader">
+          🔔 <span class="badge-notif" id="badgeNotifCount" style="display:none;">0</span>
+        </button>
+        <div class="dropdown-menu" id="menuNotificaciones">
+          <div style="padding:10px 14px; font-weight:700; font-size:12px; border-bottom:1px solid var(--borde-color);">Notificaciones</div>
+          <div id="listaNotificaciones">
+            <div class="dropdown-item" style="font-size:12px; color:var(--texto-secundario);">No hay notificaciones.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dropdown-container">
+        <button class="btn-header-icon" id="btnFavsHeader">❤️ Favoritos</button>
+        <div class="dropdown-menu" id="menuFavoritos">
+          <div style="padding:10px 14px; font-weight:700; font-size:12px; border-bottom:1px solid var(--borde-color);">Mis Favoritos</div>
+          <div id="dropdownListaFavoritos"></div>
+        </div>
+      </div>
+
+      <div id="contenedorAuthHeader">
+        <button class="btn-header-icon" id="btnAbrirLogin">👤 Iniciar Sesión</button>
+      </div>
+    </div>
+  </div>
+  <div class="franja-categorias" id="franjaCategorias"></div>
+</header>
+
+<section class="hero-banner-section">
+  <div class="banner-container" id="contenedorBanners"></div>
+  <div class="banner-nav" id="dotsBanner"></div>
+</section>
+
+<section class="seccion-productos">
+  <div class="titulo-seccion" id="tituloResultados">TODOS LOS PRODUCTOS</div>
+  <div class="grid-productos" id="gridProductos"></div>
+</section>
+
+<button class="fab-carrito" id="btnFab">
+  🛒
+  <span class="badge-carrito" id="badgeCarrito" style="display:none;">0</span>
+</button>
+
+<div class="fullscreen-view" id="fullscreenAdmin">
+  <div class="sidebar">
+    <div class="sidebar-user">
+      <h3>Panel Admin</h3>
+      <p>Gestión del sitio</p>
+    </div>
+    <button class="sidebar-btn activo" data-adm-tab="admTabOverview">📊 Vista General</button>
+    <button class="sidebar-btn" data-adm-tab="admTabProductos">📦 Productos</button>
+    <button class="sidebar-btn" data-adm-tab="admTabDescuentos">🏷️ Descuentos Globales</button>
+    <button class="sidebar-btn" data-adm-tab="admTabPopUpHome">📣 Pop-up Promocional</button>
+    <button class="sidebar-btn" data-adm-tab="admTabBanners">🖼️ Banners Promocionales</button>
+    <button class="sidebar-btn" data-adm-tab="admTabPedidos">📋 Pedidos</button>
+    <button class="sidebar-btn" data-adm-tab="admTabEmails">📧 Emails Notificaciones</button>
+    <button class="sidebar-btn" data-adm-tab="admTabSkyPostal">🚚 Origen SkyPostal</button>
+    <button class="sidebar-btn" data-adm-tab="admTabNotif">🔔 Enviar Notificación</button>
+    <button class="sidebar-btn" data-adm-tab="admTabAjustes">⚙️ Ajustes</button>
+    <button class="sidebar-btn" id="btnCerrarAdminFS" style="margin-top:auto; color:var(--rojo);">✕ Salir del Panel</button>
+  </div>
+  <div class="fullscreen-content">
+    <div class="fullscreen-header">
+      <h2 id="admTitleTab">Vista General</h2>
+    </div>
+
+    <div class="adm-section" id="admTabOverview">
+      <div class="dashboard-grid">
+        <div class="dash-card" onclick="switchAdminTab('admTabProductos')">
+          <span class="dash-card-icon">📦</span>
+          <span class="dash-card-title">Gestión de Productos</span>
+          <span class="dash-card-sub">Agregar, editar variantes o eliminar items.</span>
+        </div>
+        <div class="dash-card" onclick="switchAdminTab('admTabDescuentos')">
+          <span class="dash-card-icon">🏷️</span>
+          <span class="dash-card-title">Descuentos Masivos</span>
+          <span class="dash-card-sub">Aplicar descuento a múltiples productos a la vez.</span>
+        </div>
+        <div class="dash-card" onclick="switchAdminTab('admTabPedidos')">
+          <span class="dash-card-icon">📋</span>
+          <span class="dash-card-title">Pedidos de Clientes</span>
+          <span class="dash-card-sub">Revisar estados y asignaciones de envío.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-section" id="admTabProductos" style="display:none;">
+      <button class="btn-principal" id="btnNuevoProducto" style="max-width:240px; margin-bottom:16px;">+ Agregar Producto Nuevo</button>
+      <div id="listaAdmin"></div>
+    </div>
+
+    <div class="adm-section" id="admTabDescuentos" style="display:none;">
+      <div class="form-admin" style="max-width:500px;">
+        <h3>Aplicar Descuento Masivo</h3>
+        <p style="font-size:12px; color:var(--texto-secundario); margin-bottom:10px;">Aplica un porcentaje de descuento a múltiples productos al mismo tiempo.</p>
+        <label>% de Descuento (ej: 15)</label>
+        <input type="number" id="descMasivoPorcentaje" placeholder="Ej: 15" min="0" max="100">
+        <label>Aplicar a Categoria</label>
+        <select id="descMasivoCat">
+          <option value="todas">Todas las categorías</option>
+          <option value="bano">Para el baño</option>
+          <option value="limpieza">Para la limpieza</option>
+          <option value="cocina">Para la cocina</option>
+          <option value="bienestar">Bienestar</option>
+          <option value="snacks">Snacks</option>
+          <option value="empresa">Para tu empresa</option>
+        </select>
+        <button class="btn-principal" id="btnAplicarDescMasivo" style="margin-top:10px;">Aplicar Descuento</button>
+        <button class="btn-secundario" id="btnQuitarDescMasivo" style="margin-top:6px; width:100%;">Quitar Todos los Descuentos</button>
+      </div>
+    </div>
+
+    <div class="adm-section" id="admTabPopUpHome" style="display:none;">
+      <div class="form-admin" style="max-width:500px;">
+        <h3>Pop-Up Promocional de Inicio</h3>
+        <p style="font-size:12px; color:var(--texto-secundario); margin-bottom:10px;">Configura la ventaja emergente que se muestra al abrir la página.</p>
+        <label>
+          <input type="checkbox" id="cfgPopUpActivo" style="width:auto; display:inline-block; margin-right:8px;">
+          Activar Pop-up en Inicio
+        </label>
+        <label>Título Promocional</label>
+        <input type="text" id="cfgPopUpTitulo" placeholder="Ej: ¡Grandes Ofertas del Mes!">
+        <label>Mensaje / Detalles de Promoción</label>
+        <textarea id="cfgPopUpTexto" rows="4" placeholder="Describe aquí la promoción..."></textarea>
+        <label>URL de Imagen Ilustrativa (Opcional)</label>
+        <input type="text" id="cfgPopUpImg" placeholder="https://...">
+        <button class="btn-principal" id="btnGuardarPopUp">Guardar Configuración Pop-Up</button>
+      </div>
+    </div>
+
+    <div class="adm-section" id="admTabBanners" style="display:none;">
+      <p style="margin-bottom:16px; color:var(--texto-secundario);">Configura los 4 banners promocionales que se muestran en la pantalla principal.</p>
+      <div class="form-admin" id="formAdminBanners"></div>
+      <button class="btn-principal" id="btnGuardarBanners" style="max-width:240px; margin-top:16px;">Guardar Cambios de Banners</button>
+    </div>
+
+    <div class="adm-section" id="admTabPedidos" style="display:none;">
+      <div id="listaPedidosAdmin"></div>
+    </div>
+
+    <div class="adm-section" id="admTabEmails" style="display:none;">
+      <div class="form-admin" style="max-width:550px;">
+        <h3>Emails de Notificación y Configuración</h3>
+        <p style="font-size:12px; color:var(--texto-secundario); margin-bottom:12px;">Configura quién envía y quiénes reciben los correos de confirmación.</p>
+        
+        <div style="border:1px solid var(--borde-color); padding:12px; border-radius:8px; margin-bottom:16px;">
+          <h4 style="font-size:13px; margin-bottom:8px;">Remitente (Email que envía)</h4>
+          <label>Nombre Remitente</label>
+          <input type="text" id="cfgRemitenteNome" placeholder="FEMA Sistema">
+          <label>Email Remitente</label>
+          <input type="email" id="cfgRemitenteEmail" placeholder="notificaciones@fema.com.py">
+          <button class="btn-secundario" id="btnGuardarRemitente" style="margin-top:6px; width:100%;">Guardar Remitente</button>
+        </div>
+
+        <div style="border:1px solid var(--borde-color); padding:12px; border-radius:8px; margin-bottom:16px;">
+          <h4 style="font-size:13px; margin-bottom:8px;">Destinatarios (Emails que reciben)</h4>
+          <div style="display:flex; gap:8px;">
+            <input type="email" id="inpNuevoEmailNotif" placeholder="ventas@empresa.com">
+            <button class="btn-secundario" id="btnAgregarEmailNotif" style="height:40px;">+ Agregar</button>
+          </div>
+          <div id="listaEmailsNotif" style="margin-top:12px;"></div>
+        </div>
+
+        <div style="border:1px dashed var(--verde); background:rgba(37,211,102,0.05); padding:12px; border-radius:8px;">
+          <h4 style="font-size:13px; color:var(--verde); margin-bottom:6px;">🧪 Modo Prueba de Email</h4>
+          <p style="font-size:11px; color:var(--texto-secundario); margin-bottom:8px;">Envía un correo de prueba ahora mismo a la lista de destinatarios para verificar la entrega.</p>
+          <button class="btn-whatsapp" id="btnTestarEmailModoProba" style="height:38px; font-size:13px;">Enviar Email de Prueba 🚀</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-section" id="admTabSkyPostal" style="display:none;">
+      <div class="form-admin" style="max-width:500px;">
+        <h3>Datos Remitente (SkyPostal)</h3>
+        <label>Nombre Remitente</label>
+        <input type="text" id="spNombre" placeholder="FEMA S.A.">
+        <label>Teléfono</label>
+        <input type="text" id="spTel" placeholder="021123456">
+        <label>Email</label>
+        <input type="email" id="spEmail" placeholder="logistica@fema.com.py">
+        <label>Dirección</label>
+        <input type="text" id="spDir" placeholder="Av. Eusebio Ayala 1234">
+        <label>Ciudad</label>
+        <input type="text" id="spCiudad" placeholder="Asunción">
+        <label>City ID (SkyPostal)</label>
+        <input type="number" id="spCityId" placeholder="1">
+        <button class="btn-principal" id="btnGuardarSkyPostalOrigen">Guardar Configuración Remitente</button>
+      </div>
+    </div>
+
+    <div class="adm-section" id="admTabNotif" style="display:none;">
+      <div class="form-admin" style="max-width:500px;">
+        <label>Título de la Notificación</label>
+        <input type="text" id="notifTitulo" placeholder="Ej: ¡Oferta Relámpago!">
+        <label>Mensaje Corto</label>
+        <input type="text" id="notifMensaje" placeholder="Ej: 20% de descuento en detergentes hoy.">
+        <label>Contenido del Pop-Up Promocional (al hacer clic)</label>
+        <textarea id="notifPopUpText" rows="4" placeholder="Detalles completos de la promoción..."></textarea>
+        <button class="btn-principal" id="btnEnviarNotificacion">Enviar a Clientes</button>
+      </div>
+    </div>
+
+    <div class="adm-section" id="admTabAjustes" style="display:none;">
+      <div class="form-admin" style="max-width:400px;">
+        <label>Número de WhatsApp (Ej: 595972532124)</label>
+        <input type="text" id="cfgWhatsApp">
+        <button class="btn-principal" id="btnGuardarConfig">Guardar Configuración</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fullscreen-view" id="fullscreenUser">
+  <div class="sidebar">
+    <div class="sidebar-user">
+      <h3 id="usrProfileName">Mi Cuenta</h3>
+      <p id="usrProfileEmail">usuario@email.com</p>
+    </div>
+    <button class="sidebar-btn activo" data-usr-tab="usrTabOverview">👤 Mi Perfil</button>
+    <button class="sidebar-btn" data-usr-tab="usrTabPedidos">🛍️ Mis Compras</button>
+    <button class="sidebar-btn" data-usr-tab="usrTabFavs">❤️ Favoritos</button>
+    <button class="sidebar-btn" data-usr-tab="usrTabDatos">📍 Datos de Envío</button>
+    <button class="sidebar-btn" id="btnCerrarUserFS" style="margin-top:auto; color:var(--rojo);">✕ Cerrar Sesión</button>
+  </div>
+  <div class="fullscreen-content">
+    <div class="fullscreen-header">
+      <h2 id="usrTitleTab">Información de Perfil</h2>
+      <button class="btn-secundario" onclick="document.getElementById('fullscreenUser').classList.remove('activo')">Volver a la Tienda</button>
+    </div>
+
+    <div class="usr-section" id="usrTabOverview">
+      <div class="dashboard-grid">
+        <div class="dash-card" onclick="switchUserTab('usrTabPedidos')">
+          <span class="dash-card-icon">🛍️</span>
+          <span class="dash-card-title">Mis Compras</span>
+          <span class="dash-card-sub">Consulta el estado y seguimiento de tus pedidos.</span>
+        </div>
+        <div class="dash-card" onclick="switchUserTab('usrTabFavs')">
+          <span class="dash-card-icon">❤️</span>
+          <span class="dash-card-title">Favoritos</span>
+          <span class="dash-card-sub">Revisa tus productos guardados para rápido acceso.</span>
+        </div>
+        <div class="dash-card" onclick="switchUserTab('usrTabDatos')">
+          <span class="dash-card-icon">📍</span>
+          <span class="dash-card-title">Datos de Envío</span>
+          <span class="dash-card-sub">Configura la dirección de entrega de tus compras.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="usr-section" id="usrTabPedidos" style="display:none;">
+      <div id="listaUserPedidos"></div>
+    </div>
+
+    <div class="usr-section" id="usrTabFavs" style="display:none;">
+      <div id="gridUserFavoritos" class="grid-productos"></div>
+    </div>
+
+    <div class="usr-section" id="usrTabDatos" style="display:none;">
+      <div class="form-admin" style="max-width:500px;">
+        <label>Nombre Destinatario</label>
+        <input type="text" id="usrNombreEnvio" placeholder="Ej: Juan Pérez">
+        
+        <label>Teléfono de Contacto</label>
+        <input type="text" id="usrTelEnvio" placeholder="Ej: 0981 123456">
+        
+        <label>Dirección</label>
+        <input type="text" id="usrDirEnvio" placeholder="Ej: Av. Mariscal López #1234 c/ Peru">
+        
+        <label>Ciudad</label>
+        <input type="text" id="usrCiudadEnvio" placeholder="Ej: Asunción">
+        
+        <label>City ID (SkyPostal)</label>
+        <input type="number" id="usrCityIdEnvio" placeholder="Ej: 1">
+
+        <label>Referencia</label>
+        <input type="text" id="usrRefEnvio" placeholder="Ej: Frente al supermercado, portón blanco">
+        
+        <button class="btn-principal" id="btnGuardarDatosEnvio">Guardar Dirección</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayAuth">
+  <div class="panel" style="max-width:380px;">
+    <div class="panel-header">
+      <h2 id="tituloAuth">Iniciar Sesión</h2>
+      <button class="btn-cerrar" data-cerrar="overlayAuth">✕</button>
+    </div>
+    <div class="cuerpo-auth">
+      <button class="btn-google" id="btnGoogleAuth">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+        Continuar con Google
+      </button>
+      <div class="divisor-auth"><span>o con tu correo</span></div>
+      <input type="email" id="authEmail" placeholder="Correo electrónico">
+      <input type="password" id="authPassword" placeholder="Contraseña">
+      <button class="btn-principal" id="btnSubmitAuth">Ingresar</button>
+      <div style="font-size:12.5px; text-align:center; color:var(--texto-secundario);" id="toggleAuthBox">
+        <span id="textoToggleAuth">¿No tienes cuenta?</span>
+        <a href="#" id="linkToggleAuth" style="color:var(--rojo); font-weight:600;">Registrarse</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayHomePromo">
+  <div class="panel" style="max-width:440px;">
+    <div class="panel-header">
+      <h2 id="homePopUpTitle">¡Promoción Especial!</h2>
+      <button class="btn-cerrar" data-cerrar="overlayHomePromo">✕</button>
+    </div>
+    <div style="padding:20px; text-align:center;">
+      <img id="homePopUpImg" src="" style="width:100%; max-height:200px; object-fit:cover; border-radius:10px; margin-bottom:12px; display:none;">
+      <p id="homePopUpBody" style="font-size:14px; line-height:1.5; color:var(--texto-principal); margin-bottom:16px;"></p>
+      <button class="btn-principal" data-cerrar="overlayHomePromo">Ver Ofertas</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayPromoNotif">
+  <div class="panel" style="max-width:420px;">
+    <div class="panel-header">
+      <h2 id="promoPopUpTitle">Promoción Exclusiva</h2>
+      <button class="btn-cerrar" data-cerrar="overlayPromoNotif">✕</button>
+    </div>
+    <div style="padding:20px;">
+      <p id="promoPopUpBody" style="font-size:14px; line-height:1.5; color:var(--texto-principal);"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Detalle del Producto -->
+<div class="overlay" id="overlayDetalleProducto">
+  <div class="panel panel-gran-form">
+    <div class="panel-header">
+      <h2 id="modalDetalleTitulo">Detalles del Producto</h2>
+      <button class="btn-cerrar" data-cerrar="overlayDetalleProducto">✕</button>
+    </div>
+    <div id="cuerpoDetalleProducto" style="padding:18px;"></div>
+  </div>
+</div>
+
+<!-- Modal Checkout com Renderização Dinâmica (Confirmar vs Editar) -->
+<div class="overlay" id="overlayCheckoutEnvio">
+  <div class="panel">
+    <div class="panel-header">
+      <h2>Datos de Entrega para el Pedido</h2>
+      <button class="btn-cerrar" data-cerrar="overlayCheckoutEnvio">✕</button>
+    </div>
+    <div id="cuerpoCheckoutEnvio" style="padding:18px;"></div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayDetallePedidoAdmin">
+  <div class="panel panel-gran-form">
+    <div class="panel-header">
+      <h2>Revisión de Pedido (Admin)</h2>
+      <button class="btn-cerrar" data-cerrar="overlayDetallePedidoAdmin">✕</button>
+    </div>
+    <div id="cuerpoDetallePedidoAdmin" style="padding:18px;"></div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayCarrito">
+  <div class="panel">
+    <div class="panel-header">
+      <h2>Tu Pedido</h2>
+      <button class="btn-cerrar" data-cerrar="overlayCarrito">✕</button>
+    </div>
+    <div id="listaCarrito"></div>
+    <div class="resumen-carrito">
+      <div style="display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:16px; margin-bottom:12px; font-family:var(--fuente-display);">
+        <span>Total:</span>
+        <span id="totalCarritoMonto" style="color:var(--rojo);">₲ 0</span>
+      </div>
+      <button class="btn-principal" id="btnIrADatosEnvio">Continuar a Datos de Entrega ➔</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayLoginAdmin">
+  <div class="panel">
+    <div class="panel-header">
+      <h2>Acceso Administrador</h2>
+      <button class="btn-cerrar" data-cerrar="overlayLoginAdmin">✕</button>
+    </div>
+    <div class="form-admin" style="padding:18px;">
+      <input type="password" id="inputPasswordAdmin" placeholder="Contraseña">
+      <div id="errorLoginAdmin" style="display:none; color:var(--rojo); font-size:12px; margin-bottom:10px;">Contraseña incorrecta.</div>
+      <button class="btn-principal" id="btnEntrarAdmin">Entrar al Panel</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayFormProducto">
+  <div class="panel panel-gran-form">
+    <div class="panel-header">
+      <h2 id="tituloFormProd">Nuevo Producto</h2>
+      <button class="btn-cerrar" data-cerrar="overlayFormProducto">✕</button>
+    </div>
+    <div class="form-admin" style="padding:18px;">
+      <input type="hidden" id="prodEditId">
+      <label>Nombre del Producto</label>
+      <input type="text" id="prodNombre">
+      <label>Categoría</label>
+      <select id="prodCategoria">
+        <option value="bano">Para el baño</option>
+        <option value="limpieza">Para la limpieza</option>
+        <option value="cocina">Para la cocina</option>
+        <option value="bienestar">Bienestar</option>
+        <option value="snacks">Snacks</option>
+        <option value="empresa">Para tu empresa</option>
+      </select>
+      <label>Descripción completa del producto</label>
+      <textarea id="prodDescripcion" rows="3"></textarea>
+
+      <div style="margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+        <input type="checkbox" id="prodFreteGratis" style="width:auto; display:inline-block;">
+        <label for="prodFreteGratis" style="margin:0; cursor:pointer;">Activar Badge 🚚 FRETE GRÁTIS</label>
+      </div>
+
+      <div style="border:1px solid var(--borde-color); padding:10px; border-radius:8px; margin-bottom:10px;">
+        <label>Precio Base (₲) - Si no hay variaciones</label>
+        <input type="number" id="prodPrecioBase" placeholder="Ej: 25000">
+        <label>Descuento Directo % (Opcional)</label>
+        <input type="number" id="prodDescuentoBase" placeholder="Ej: 10" min="0" max="100">
+      </div>
+
+      <label>Variantes / Tamaños (Aromas / Colores / Tamaños / Precios)</label>
+      <div id="contenedorVariantesForm"></div>
+      <button class="btn-secundario" id="btnAddVarianteForm" type="button" style="margin-bottom:10px;">+ Agregar Variación / Tamaño</button>
+      <button class="btn-principal" id="btnGuardarProducto">Guardar Producto</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px;">
+        <circle cx="38" cy="40" r="24" stroke="#FFFFFF" stroke-width="12"/>
+        <circle cx="62" cy="60" r="24" stroke="var(--rojo)" stroke-width="12"/>
+      </svg>
+      <span class="logo-text" style="color:#FFF;">FEMA</span>
+    </div>
+    <div class="footer-copy">FEMA — Higiene y bienestar para tu hogar y negocio. Asunción, Paraguay.</div>
+  </div>
+</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { 
+    getAuth, signInWithPopup, GoogleAuthProvider, 
+    createUserWithEmailAndPassword, signInWithEmailAndPassword, 
+    onAuthStateChanged, signOut 
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { 
+    getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, updateDoc, getDoc 
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBuHLuix8Y-B6w2JSYsgB-27dMXWzKfc0s",
+    authDomain: "fema-catalogo-bbdac.firebaseapp.com",
+    databaseURL: "https://fema-catalogo-bbdac-default-rtdb.firebaseio.com",
+    projectId: "fema-catalogo-bbdac",
+    storageBucket: "fema-catalogo-bbdac.firebasestorage.app",
+    messagingSenderId: "972060337287",
+    appId: "1:972060337287:web:894ad4a1c7d656ede1c422"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const providerGoogle = new GoogleAuthProvider();
+
+  let CONFIG_SITIO = { whatsapp: "595972532124", passwordAdmin: "fer0710!", popUpPromo: { activo: false, titulo: "", texto: "", imgUrl: "" } };
+  let SKYPOSTAL_ORIGEN = { nombre: "FEMA S.A.", telefono: "021123456", email: "logistica@fema.com.py", direccion: "Asunción, Paraguay", ciudad: "Asunción", city_id: 1 };
+  let EMAILS_NOTIF = [];
+  let CONFIG_REMITENTE = { email: "", nombre: "FEMA Sistema" };
+
+  const CATEGORIAS = [
+    { id: "todos", nombre: "Todos" }, { id: "bano", nombre: "Para el baño" },
+    { id: "limpieza", nombre: "Para la limpieza" }, { id: "cocina", nombre: "Para la cocina" },
+    { id: "bienestar", nombre: "Bienestar" }, { id: "snacks", nombre: "Snacks" }, { id: "empresa", nombre: "Para tu empresa" }
+  ];
+
+  let BANNERS = [
+    { titulo: "Bienvenidos a FEMA", texto: "Higiene y bienestar para tu hogar", btnText: "Ver Ofertas", bgUrl: "", linkCat: "todos" },
+    { titulo: "Limpieza Profunda", texto: "Los mejores detergentes y desinfectantes", btnText: "Comprar Ahora", bgUrl: "", linkCat: "limpieza" },
+    { titulo: "Cuidado Personal", texto: "Jabones y fragancias exclusivas", btnText: "Explorar", bgUrl: "", linkCat: "bano" },
+    { titulo: "Línea Corporativa", texto: "Suministros para tu empresa", btnText: "Cotizar", bgUrl: "", linkCat: "empresa" }
+  ];
+  let NOTIFICACIONES = [];
+
+  let usuarioActual = null;
+  let datosUsuario = { favoritos: [], datosEnvio: {} };
+  let PRODUCTOS = [];
+  let PEDIDOS_TODOS = [];
+  let carrito = []; 
+  let estadoTarjetas = {}; 
+  let categoriaActiva = "todos";
+  let terminoBusqueda = "";
+  let modoAuthRegistro = false;
+  let clickLogoCounter = 0;
+  let activeBannerIndex = 0;
+  let bannerInterval = null;
+  let modoEdicionCheckout = false;
+
+  let itemsPorPagina = 8;
+  let paginaActual = 1;
+  let observerLazy = null;
+
+  window.abrirOverlay = function(id) { document.getElementById(id).classList.add('activo'); }
+  window.cerrarOverlay = function(id) { document.getElementById(id).classList.remove('activo'); }
+  window.mostrarToast = function(txt) {
+    const t = document.getElementById('toast');
+    t.textContent = txt; t.classList.add('mostrar');
+    setTimeout(() => t.classList.remove('mostrar'), 2000);
+  }
+
+  function renderCategorias() {
+    const cont = document.getElementById('franjaCategorias');
+    if(!cont) return;
+    cont.innerHTML = CATEGORIAS.map(c => `
+      <button class="chip-cat ${c.id === categoriaActiva ? 'activo' : ''}" data-cat="${c.id}">${c.nombre}</button>
+    `).join('');
+
+    cont.querySelectorAll('[data-cat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoriaActiva = btn.dataset.cat;
+        document.getElementById('tituloResultados').textContent = btn.dataset.cat === "todos" ? "TODOS LOS PRODUCTOS" : btn.textContent.toUpperCase();
+        renderCategorias();
+        resetLazyGrid();
+      });
+    });
+  }
+  renderCategorias();
+
+  document.getElementById('inputBusqueda').addEventListener('input', (e) => {
+    terminoBusqueda = e.target.value.trim();
+    resetLazyGrid();
+  });
+
+  document.getElementById('btnThemeToggle').addEventListener('click', () => document.body.classList.toggle('dark-mode'));
+  
+  document.getElementById('btnFavsHeader').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('menuNotificaciones').classList.remove('activo');
+    document.getElementById('menuFavoritos').classList.toggle('activo');
+  });
+
+  document.getElementById('btnNotifHeader').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('menuFavoritos').classList.remove('activo');
+    document.getElementById('menuNotificaciones').classList.toggle('activo');
+  });
+
+  document.addEventListener('click', () => {
+    document.getElementById('menuFavoritos').classList.remove('activo');
+    document.getElementById('menuNotificaciones').classList.remove('activo');
+  });
+
+  document.getElementById('btnFab').addEventListener('click', () => {
+    renderCarritoModal();
+    abrirOverlay('overlayCarrito');
+  });
+
+  document.getElementById('logoTrigger').addEventListener('click', () => {
+    clickLogoCounter++;
+    if (clickLogoCounter >= 5) {
+      clickLogoCounter = 0;
+      abrirOverlay('overlayLoginAdmin');
+    }
+  });
+
+  document.getElementById('btnEntrarAdmin').addEventListener('click', () => {
+    if (document.getElementById('inputPasswordAdmin').value === CONFIG_SITIO.passwordAdmin) {
+      cerrarOverlay('overlayLoginAdmin');
+      renderAdminProductos();
+      renderPedidosAdmin();
+      renderAdminBannersForm();
+      renderEmailsNotif();
+      cargarSkyPostalOrigenInputs();
+      if(CONFIG_SITIO.popUpPromo) {
+        document.getElementById('cfgPopUpActivo').checked = CONFIG_SITIO.popUpPromo.activo || false;
+        document.getElementById('cfgPopUpTitulo').value = CONFIG_SITIO.popUpPromo.titulo || "";
+        document.getElementById('cfgPopUpTexto').value = CONFIG_SITIO.popUpPromo.texto || "";
+        document.getElementById('cfgPopUpImg').value = CONFIG_SITIO.popUpPromo.imgUrl || "";
+      }
+      document.getElementById('cfgWhatsApp').value = CONFIG_SITIO.whatsapp || "";
+      document.getElementById('fullscreenAdmin').classList.add('activo');
+    } else {
+      document.getElementById('errorLoginAdmin').style.display = 'block';
+    }
+  });
+
+  document.getElementById('btnCerrarAdminFS').addEventListener('click', () => {
+    document.getElementById('fullscreenAdmin').classList.remove('activo');
+  });
+
+  document.getElementById('btnCerrarUserFS').addEventListener('click', () => {
+    signOut(auth);
+    document.getElementById('fullscreenUser').classList.remove('activo');
+  });
+
+  document.querySelectorAll('[data-cerrar]').forEach(b => b.addEventListener('click', () => cerrarOverlay(b.dataset.cerrar)));
+
+  window.switchAdminTab = function(tabId) {
+    document.querySelectorAll('#fullscreenAdmin .sidebar-btn').forEach(b => {
+      b.classList.toggle('activo', b.dataset.admTab === tabId);
+    });
+    document.querySelectorAll('#fullscreenAdmin .adm-section').forEach(s => s.style.display = 'none');
+    document.getElementById(tabId).style.display = 'block';
+    const activeBtn = document.querySelector(`[data-adm-tab="${tabId}"]`);
+    if(activeBtn) document.getElementById('admTitleTab').textContent = activeBtn.textContent;
+  };
+
+  document.querySelectorAll('#fullscreenAdmin .sidebar-btn[data-adm-tab]').forEach(btn => {
+    btn.addEventListener('click', () => switchAdminTab(btn.dataset.admTab));
+  });
+
+  window.switchUserTab = function(tabId) {
+    document.querySelectorAll('#fullscreenUser .sidebar-btn').forEach(b => {
+      b.classList.toggle('activo', b.dataset.usrTab === tabId);
+    });
+    document.querySelectorAll('#fullscreenUser .usr-section').forEach(s => s.style.display = 'none');
+    document.getElementById(tabId).style.display = 'block';
+    const activeBtn = document.querySelector(`[data-usr-tab="${tabId}"]`);
+    if(activeBtn) document.getElementById('usrTitleTab').textContent = activeBtn.textContent;
+  };
+
+  document.querySelectorAll('#fullscreenUser .sidebar-btn[data-usr-tab]').forEach(btn => {
+    btn.addEventListener('click', () => switchUserTab(btn.dataset.usrTab));
+  });
+
+  onAuthStateChanged(auth, async (user) => {
+    usuarioActual = user;
+    const cont = document.getElementById('contenedorAuthHeader');
+    if (user) {
+      cont.innerHTML = `
+        <div class="dropdown-container">
+          <button class="btn-header-icon" id="btnUserMenuHeader">👤 ${user.displayName || user.email.split('@')[0]} ▾</button>
+          <div class="dropdown-menu" id="menuUserHeader">
+            <div class="dropdown-item" onclick="openUserDashboard('usrTabOverview')">👤 Mi Perfil</div>
+            <div class="dropdown-item" onclick="openUserDashboard('usrTabPedidos')">🛍️ Mis Compras</div>
+            <div class="dropdown-item" onclick="openUserDashboard('usrTabFavs')">❤️ Favoritos</div>
+            <div class="dropdown-item" onclick="openUserDashboard('usrTabDatos')">📍 Datos de Envío</div>
+            <div class="dropdown-item" id="btnSignOutHeader" style="color:var(--rojo);">🚪 Cerrar Sesión</div>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('btnUserMenuHeader').onclick = (e) => {
+        e.stopPropagation();
+        document.getElementById('menuUserHeader').classList.toggle('activo');
+      };
+      
+      document.getElementById('btnSignOutHeader').onclick = () => signOut(auth);
+
+      document.getElementById('usrProfileName').textContent = user.displayName || user.email.split('@')[0];
+      document.getElementById('usrProfileEmail').textContent = user.email;
+
+      onSnapshot(doc(db, "usuarios", user.uid), (snap) => {
+        if (snap.exists()) {
+          datosUsuario = snap.data();
+          if(datosUsuario.datosEnvio) {
+            document.getElementById('usrNombreEnvio').value = datosUsuario.datosEnvio.nombre || "";
+            document.getElementById('usrTelEnvio').value = datosUsuario.datosEnvio.tel || "";
+            document.getElementById('usrDirEnvio').value = datosUsuario.datosEnvio.dir || "";
+            document.getElementById('usrCiudadEnvio').value = datosUsuario.datosEnvio.ciudad || "";
+            document.getElementById('usrCityIdEnvio').value = datosUsuario.datosEnvio.city_id || 1;
+            document.getElementById('usrRefEnvio').value = datosUsuario.datosEnvio.ref || "";
+          }
+        } else {
+          setDoc(doc(db, "usuarios", user.uid), { favoritos: [], datosEnvio: {} });
+        }
+        resetLazyGrid();
+        renderUserFavoritos();
+        renderDropdownFavoritos();
+      });
+    } else {
+      cont.innerHTML = `<button class="btn-header-icon" id="btnAbrirLogin">👤 Iniciar Sesión</button>`;
+      document.getElementById('btnAbrirLogin').onclick = () => abrirOverlay('overlayAuth');
+      datosUsuario = { favoritos: [], datosEnvio: {} };
+      resetLazyGrid();
+      renderDropdownFavoritos();
+    }
+  });
+
+  window.openUserDashboard = function(tabId) {
+    document.getElementById('fullscreenUser').classList.add('activo');
+    switchUserTab(tabId);
+  };
+
+  document.getElementById('linkToggleAuth').addEventListener('click', (e) => {
+    e.preventDefault();
+    modoAuthRegistro = !modoAuthRegistro;
+    document.getElementById('tituloAuth').textContent = modoAuthRegistro ? "Crear Cuenta" : "Iniciar Sesión";
+    document.getElementById('btnSubmitAuth').textContent = modoAuthRegistro ? "Registrarse" : "Ingresar";
+    document.getElementById('textoToggleAuth').textContent = modoAuthRegistro ? "¿Ya tienes cuenta?" : "¿No tienes cuenta?";
+    document.getElementById('linkToggleAuth').textContent = modoAuthRegistro ? "Iniciar Sesión" : "Registrarse";
+  });
+
+  document.getElementById('btnSubmitAuth').addEventListener('click', async () => {
+    const email = document.getElementById('authEmail').value.trim();
+    const password = document.getElementById('authPassword').value;
+    if(!email || !password) return alert("Completa los datos");
+    try {
+      if(modoAuthRegistro) {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+      }
+      cerrarOverlay('overlayAuth');
+      mostrarToast("¡Sesión iniciada!");
+    } catch(e) { alert("Error: " + e.message); }
+  });
+
+  document.getElementById('btnGoogleAuth').addEventListener('click', async () => {
+    try {
+      await signInWithPopup(auth, providerGoogle);
+      cerrarOverlay('overlayAuth');
+      mostrarToast("¡Bienvenido!");
+    } catch (e) { alert("Error Auth: " + e.message); }
+  });
+
+  document.getElementById('btnGuardarDatosEnvio').addEventListener('click', async () => {
+    if(!usuarioActual) return;
+    const datosEnvio = {
+      nombre: document.getElementById('usrNombreEnvio').value.trim(),
+      tel: document.getElementById('usrTelEnvio').value.trim(),
+      dir: document.getElementById('usrDirEnvio').value.trim(),
+      ciudad: document.getElementById('usrCiudadEnvio').value.trim(),
+      city_id: parseInt(document.getElementById('usrCityIdEnvio').value) || 1,
+      ref: document.getElementById('usrRefEnvio').value.trim()
+    };
+    await updateDoc(doc(db, "usuarios", usuarioActual.uid), { datosEnvio });
+    mostrarToast("Datos de envío guardados");
+  });
+
+  onSnapshot(collection(db, "productos"), (snapshot) => {
+    PRODUCTOS = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    resetLazyGrid();
+    renderAdminProductos();
+    renderDropdownFavoritos();
+    renderUserFavoritos();
+  });
+
+  onSnapshot(collection(db, "pedidos"), (snapshot) => {
+    PEDIDOS_TODOS = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderUserPedidos();
+    renderPedidosAdmin();
+  });
+
+  onSnapshot(collection(db, "notificaciones"), (snapshot) => {
+    NOTIFICACIONES = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderNotificacionesMenu();
+  });
+
+  getDoc(doc(db, "configuracion", "general")).then(snap => {
+    if(snap.exists()) {
+      CONFIG_SITIO = { ...CONFIG_SITIO, ...snap.data() };
+      checkHomePopUp();
+    }
+  });
+
+  getDoc(doc(db, "configuracion", "banners")).then(snap => {
+    if(snap.exists() && snap.data().items) {
+      BANNERS = snap.data().items;
+      renderBanners();
+    } else {
+      renderBanners();
+    }
+  });
+
+  getDoc(doc(db, "configuracion", "skypostal_origen")).then(snap => {
+    if(snap.exists()) SKYPOSTAL_ORIGEN = snap.data();
+  });
+
+  onSnapshot(doc(db, "configuracion", "emails_notif"), (snap) => {
+    if(snap.exists()) {
+      const d = snap.data();
+      EMAILS_NOTIF = d.emails || [];
+      if(d.remitente) {
+        CONFIG_REMITENTE = d.remitente;
+        const rNome = document.getElementById('cfgRemitenteNome');
+        const rMail = document.getElementById('cfgRemitenteEmail');
+        if(rNome) rNome.value = CONFIG_REMITENTE.nombre || "";
+        if(rMail) rMail.value = CONFIG_REMITENTE.email || "";
+      }
+      renderEmailsNotif();
+    }
+  });
+
+  function checkHomePopUp() {
+    if(CONFIG_SITIO.popUpPromo && CONFIG_SITIO.popUpPromo.activo) {
+      document.getElementById('homePopUpTitle').textContent = CONFIG_SITIO.popUpPromo.titulo || "Promoción";
+      document.getElementById('homePopUpBody').textContent = CONFIG_SITIO.popUpPromo.texto || "";
+      const img = document.getElementById('homePopUpImg');
+      if(CONFIG_SITIO.popUpPromo.imgUrl) {
+        img.src = CONFIG_SITIO.popUpPromo.imgUrl;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+      abrirOverlay('overlayHomePromo');
+    }
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('gridProductos');
+    const filtrados = PRODUCTOS.filter(p => {
+      const pasaCat = categoriaActiva === "todos" || p.categoria === categoriaActiva;
+      const pasaBusq = (p.nombre || "").toLowerCase().includes(terminoBusqueda.toLowerCase());
+      return pasaCat && pasaBusq;
+    });
+
+    if (filtrados.length === 0) {
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--texto-secundario);">No hay productos.</div>`;
+      return;
+    }
+
+    const visibles = filtrados.slice(0, paginaActual * itemsPorPagina);
+
+    grid.innerHTML = visibles.map((p, idx) => {
+      if(!estadoTarjetas[p.id]) estadoTarjetas[p.id] = { aromaIdx: 0, cant: 1 };
+      const st = estadoTarjetas[p.id];
+      const vars = p.variantes && p.variantes.length > 0 ? p.variantes : [{ aroma: "Estándar", fotoUrl: "", precio: p.precioBase || 0, descripcion: "", descuento: p.descuento || 0 }];
+      const varActiva = vars[st.aromaIdx] || vars[0];
+      const esFav = (datosUsuario.favoritos || []).includes(p.id);
+
+      const precioOrig = varActiva.precio || p.precioBase || 0;
+      const descVal = varActiva.descuento !== undefined ? varActiva.descuento : (p.descuento || 0);
+      const calcPrice = calcularPrecioFinal(precioOrig, descVal);
+
+      return `
+        <div class="tarjeta" ${idx === visibles.length - 1 ? 'id="lazyTrigger"' : ''}>
+          ${p.freteGratis ? `<span class="badge-frete-gratis">🚚 FRETE GRÁTIS</span>` : ''}
+          <button class="btn-fav-card ${esFav ? 'activo' : ''}" data-fav="${p.id}">❤️</button>
+          <div class="media-producto" onclick="verDetalleProducto('${p.id}')">
+            ${vars.length > 1 ? `<button class="btn-nav-slider prev" data-prev="${p.id}">❮</button>` : ''}
+            <img src="${varActiva.fotoUrl || 'https://via.placeholder.com/300?text=FEMA'}" class="foto-prod" loading="lazy">
+            ${vars.length > 1 ? `<button class="btn-nav-slider next" data-next="${p.id}">❯</button>` : ''}
+          </div>
+          <div class="info-tarjeta">
+            <span class="nombre-producto" onclick="verDetalleProducto('${p.id}')">${p.nombre}</span>
+            <div class="tag-aroma">${varActiva.aroma ? 'Variante: ' + varActiva.aroma : ''}</div>
+            
+            ${vars.length > 1 ? `
+              <div class="selector-aromas">
+                ${vars.map((v, i) => `<button class="chip-aroma ${i === st.aromaIdx ? 'activo' : ''}" data-aroma-idx="${i}" data-pid="${p.id}">${v.aroma || 'Op '+(i+1)}</button>`).join('')}
+              </div>
+            ` : ''}
+
+            <p class="desc-corta">${varActiva.descripcion || p.descripcion || ''}</p>
+
+            <div class="precio-box">
+              ${calcPrice.tieneDescuento ? `<span class="precio-original">₲ ${calcPrice.precioOriginal.toLocaleString('es-PY')}</span>` : ''}
+              <span class="precio-actual">₲ ${calcPrice.precioFinal.toLocaleString('es-PY')}</span>
+            </div>
+
+            <div class="fila-cantidad-carrito">
+              <div class="selector-cant">
+                <button data-minus="${p.id}">-</button>
+                <span>${st.cant}</span>
+                <button data-plus="${p.id}">+</button>
+              </div>
+              <button class="btn-agregar" data-add="${p.id}">Agregar 🛒</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    grid.querySelectorAll('[data-fav]').forEach(b => b.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      if(!usuarioActual) return abrirOverlay('overlayAuth');
+      const id = b.dataset.fav;
+      let favs = [...(datosUsuario.favoritos || [])];
+      if(favs.includes(id)) favs = favs.filter(i => i !== id);
+      else favs.push(id);
+      await updateDoc(doc(db, "usuarios", usuarioActual.uid), { favoritos: favs });
+    }));
+
+    grid.querySelectorAll('[data-minus]').forEach(b => b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.minus;
+      if(estadoTarjetas[id].cant > 1) { estadoTarjetas[id].cant--; renderGrid(); }
+    }));
+    grid.querySelectorAll('[data-plus]').forEach(b => b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.plus;
+      estadoTarjetas[id].cant++; renderGrid();
+    }));
+    grid.querySelectorAll('[data-prev]').forEach(b => b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.prev;
+      const p = PRODUCTOS.find(item => item.id === id);
+      estadoTarjetas[id].aromaIdx = (estadoTarjetas[id].aromaIdx - 1 + p.variantes.length) % p.variantes.length;
+      renderGrid();
+    }));
+    grid.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.next;
+      const p = PRODUCTOS.find(item => item.id === id);
+      estadoTarjetas[id].aromaIdx = (estadoTarjetas[id].aromaIdx + 1) % p.variantes.length;
+      renderGrid();
+    }));
+    grid.querySelectorAll('[data-aroma-idx]').forEach(b => b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.pid;
+      estadoTarjetas[id].aromaIdx = parseInt(b.dataset.aromaIdx);
+      renderGrid();
+    }));
+    grid.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.add;
+      const st = estadoTarjetas[id];
+      agregarAlCarrito(id, st.aromaIdx, st.cant);
+    }));
+
+    if (observerLazy) observerLazy.disconnect();
+    const lazyTarget = document.getElementById('lazyTrigger');
+    if (lazyTarget && visibles.length < filtrados.length) {
+      observerLazy = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          paginaActual++;
+          renderGrid();
+        }
+      }, { threshold: 0.1 });
+      observerLazy.observe(lazyTarget);
+    }
+  }
+
+  // Visualização de Produto Individual (Exibindo Selo FRETE GRÁTIS)
+  window.verDetalleProducto = function(prodId) {
+    const p = PRODUCTOS.find(item => item.id === prodId);
+    if(!p) return;
+
+    if(!estadoTarjetas[p.id]) estadoTarjetas[p.id] = { aromaIdx: 0, cant: 1 };
+    const st = estadoTarjetas[p.id];
+    const vars = p.variantes && p.variantes.length > 0 ? p.variantes : [{ aroma: "Estándar", fotoUrl: "", precio: p.precioBase || 0, descripcion: "", descuento: p.descuento || 0 }];
+    const varActiva = vars[st.aromaIdx] || vars[0];
+
+    const precioOrig = varActiva.precio || p.precioBase || 0;
+    const descVal = varActiva.descuento !== undefined ? varActiva.descuento : (p.descuento || 0);
+    const calcPrice = calcularPrecioFinal(precioOrig, descVal);
+
+    const cont = document.getElementById('cuerpoDetalleProducto');
+    document.getElementById('modalDetalleTitulo').textContent = p.nombre;
+
+    cont.innerHTML = `
+      <div style="position:relative; display:flex; flex-direction:column; gap:14px;">
+        ${p.freteGratis ? `<div style="display:inline-block;"><span class="badge-frete-gratis" style="position:relative; top:0; left:0; display:inline-block;">🚚 FRETE GRÁTIS</span></div>` : ''}
+        
+        <img src="${varActiva.fotoUrl || 'https://via.placeholder.com/400'}" style="width:100%; max-height:300px; object-fit:cover; border-radius:12px;">
+
+        ${vars.length > 1 ? `
+          <div>
+            <label style="font-size:12px; font-weight:600;">Seleccionar Variación:</label>
+            <div class="selector-aromas" style="margin-top:4px;">
+              ${vars.map((v, i) => `<button class="chip-aroma ${i === st.aromaIdx ? 'activo' : ''}" onclick="mudarAromaModal('${p.id}', ${i})">${v.aroma || 'Op '+(i+1)}</button>`).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <div>
+          <h3 style="font-size:16px; font-family:var(--fuente-display);">${p.nombre}</h3>
+          <p style="font-size:13px; color:var(--texto-secundario); margin-top:6px; line-height:1.4;">${varActiva.descripcion || p.descripcion || 'Sin descripción disponible.'}</p>
+        </div>
+
+        <div class="precio-box">
+          ${calcPrice.tieneDescuento ? `<span class="precio-original" style="font-size:14px;">₲ ${calcPrice.precioOriginal.toLocaleString('es-PY')}</span>` : ''}
+          <span class="precio-actual" style="font-size:18px;">₲ ${calcPrice.precioFinal.toLocaleString('es-PY')}</span>
+        </div>
+
+        <button class="btn-principal" onclick="agregarAlCarrito('${p.id}', ${st.aromaIdx}, 1); cerrarOverlay('overlayDetalleProducto');">
+          Agregar al Carrito 🛒
+        </button>
+      </div>
+    `;
+
+    abrirOverlay('overlayDetalleProducto');
+  };
+
+  window.mudarAromaModal = function(pid, idx) {
+    estadoTarjetas[pid].aromaIdx = idx;
+    verDetalleProducto(pid);
+  };
+
+  function calcularPrecioFinal(precioOriginal, descuento) {
+    if(!descuento || descuento <= 0) return { tieneDescuento: false, precioFinal: precioOriginal, precioOriginal };
+    const desc = (precioOriginal * descuento) / 100;
+    return { tieneDescuento: true, precioFinal: Math.round(precioOriginal - desc), precioOriginal };
+  }
+
+  function resetLazyGrid() { paginaActual = 1; renderGrid(); }
+
+  window.agregarAlCarrito = function(prodId, aromaIdx, cantidad) {
+    const ex = carrito.find(i => i.prodId === prodId && i.aromaIdx === aromaIdx);
+    if (ex) ex.cantidad += cantidad;
+    else carrito.push({ prodId, aromaIdx, cantidad });
+    actualizarBadgeCarrito();
+    mostrarToast("Producto añadido al carrito");
+  };
+
+  function actualizarBadgeCarrito() {
+    const badge = document.getElementById('badgeCarrito');
+    const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    if(total > 0) { badge.textContent = total; badge.style.display = 'flex'; }
+    else { badge.style.display = 'none'; }
+  }
+
+  function renderCarritoModal() {
+    const cont = document.getElementById('listaCarrito');
+    const totalElem = document.getElementById('totalCarritoMonto');
+    if(carrito.length === 0) {
+      cont.innerHTML = `<p style="padding:30px; text-align:center; color:var(--texto-secundario);">El carrito está vacío.</p>`;
+      if(totalElem) totalElem.textContent = "₲ 0";
+      return;
+    }
+
+    let granTotal = 0;
+
+    cont.innerHTML = carrito.map((item, idx) => {
+      const p = PRODUCTOS.find(prod => prod.id === item.prodId);
+      if(!p) return '';
+      const v = (p.variantes && p.variantes[item.aromaIdx]) ? p.variantes[item.aromaIdx] : {};
+      
+      const precioOrig = v.precio || p.precioBase || 0;
+      const descVal = v.descuento !== undefined ? v.descuento : (p.descuento || 0);
+      const calc = calcularPrecioFinal(precioOrig, descVal);
+      const subtotal = calc.precioFinal * item.cantidad;
+      granTotal += subtotal;
+
+      return `
+        <div class="item-carrito">
+          <img src="${v.fotoUrl || 'https://via.placeholder.com/100'}">
+          <div style="flex:1;">
+            <strong style="font-size:13px;">${p.nombre}</strong>
+            <div style="font-size:11px; color:var(--rojo);">${v.aroma ? 'Variante: ' + v.aroma : ''}</div>
+            <div style="font-size:11px; color:var(--texto-secundario);">₲ ${calc.precioFinal.toLocaleString('es-PY')} c/u</div>
+            <div style="font-size:12px; font-weight:600; margin-top:4px;">Cantidad: ${item.cantidad} — Subtotal: ₲ ${subtotal.toLocaleString('es-PY')}</div>
+          </div>
+          <button class="btn-cerrar" onclick="eliminarDelCarrito(${idx})">✕</button>
+        </div>
+      `;
+    }).join('');
+
+    if(totalElem) totalElem.textContent = `₲ ${granTotal.toLocaleString('es-PY')}`;
+  }
+
+  window.eliminarDelCarrito = function(idx) {
+    carrito.splice(idx, 1);
+    actualizarBadgeCarrito();
+    renderCarritoModal();
+  };
+
+  // 1. Checkout e Dados de Entrega (Modo Confirmação vs Edição)
+  document.getElementById('btnIrADatosEnvio').addEventListener('click', () => {
+    if(carrito.length === 0) return alert("El carrito está vacío.");
+    if(!usuarioActual) {
+      cerrarOverlay('overlayCarrito');
+      abrirOverlay('overlayAuth');
+      mostrarToast("Debes iniciar sesión para realizar el pedido.");
+      return;
+    }
+
+    modoEdicionCheckout = false;
+    renderCheckoutModal();
+    cerrarOverlay('overlayCarrito');
+    abrirOverlay('overlayCheckoutEnvio');
+  });
+
+  function renderCheckoutModal() {
+    const cont = document.getElementById('cuerpoCheckoutEnvio');
+    if(!cont) return;
+
+    const env = datosUsuario.datosEnvio || {};
+    const tieneDatosCompletos = env.nombre && env.tel && env.dir && env.ciudad;
+
+    if(tieneDatosCompletos && !modoEdicionCheckout) {
+      cont.innerHTML = `
+        <div class="box-confirmacion-envio">
+          <h4 style="font-size:14px; margin-bottom:8px; color:var(--texto-principal);">📍 Dirección de Entrega Guardada</h4>
+          <p><strong>Destinatario:</strong> ${env.nombre}</p>
+          <p><strong>Teléfono:</strong> ${env.tel}</p>
+          <p><strong>Dirección:</strong> ${env.dir}</p>
+          <p><strong>Ciudad:</strong> ${env.ciudad} (City ID: ${env.city_id || 1})</p>
+          ${env.ref ? `<p><strong>Referencia:</strong> ${env.ref}</p>` : ''}
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <button class="btn-whatsapp" id="btnConfirmarYIrWhatsApp">
+            📱 Confirmar y Continuar a WhatsApp
+          </button>
+          <button class="btn-secundario" id="btnHabilitarEdicionCheckout" style="text-align:center;">
+            ✏️ Editar Dados de Entrega
+          </button>
+        </div>
+      `;
+
+      document.getElementById('btnConfirmarYIrWhatsApp').onclick = ejecutarPedidoWhatsApp;
+      document.getElementById('btnHabilitarEdicionCheckout').onclick = () => {
+        modoEdicionCheckout = true;
+        renderCheckoutModal();
+      };
+    } else {
+      cont.innerHTML = `
+        <div class="form-admin">
+          <p style="font-size:12px; color:var(--texto-secundario); margin-bottom:10px;">
+            Completa o actualiza tus datos de entrega para finalizar el pedido.
+          </p>
+          <label>Nombre Completo *</label>
+          <input type="text" id="chkNombre" value="${env.nombre || ''}" placeholder="Ej: Juan Pérez">
+          
+          <label>Teléfono *</label>
+          <input type="text" id="chkTel" value="${env.tel || ''}" placeholder="Ej: 0981123456">
+          
+          <label>Dirección *</label>
+          <input type="text" id="chkDir" value="${env.dir || ''}" placeholder="Ej: Av. Mariscal López #1234">
+          
+          <label>Ciudad *</label>
+          <input type="text" id="chkCiudad" value="${env.ciudad || ''}" placeholder="Ej: Asunción">
+
+          <label>City ID SkyPostal *</label>
+          <input type="number" id="chkCityId" value="${env.city_id || 1}" placeholder="1">
+          
+          <label>Complemento / Referencia</label>
+          <input type="text" id="chkRef" value="${env.ref || ''}" placeholder="Ej: Portón azul frente a la plaza">
+          
+          <button class="btn-whatsapp" id="btnConfirmarYIrWhatsAppForm" style="margin-top:10px;">
+            📱 Confirmar y Continuar a WhatsApp
+          </button>
+          ${tieneDatosCompletos ? `
+            <button class="btn-secundario" id="btnCancelarEdicionCheckout" style="margin-top:6px; width:100%;">
+              Cancelar Edición
+            </button>
+          ` : ''}
+        </div>
+      `;
+
+      document.getElementById('btnConfirmarYIrWhatsAppForm').onclick = async () => {
+        const nombre = document.getElementById('chkNombre').value.trim();
+        const tel = document.getElementById('chkTel').value.trim();
+        const dir = document.getElementById('chkDir').value.trim();
+        const ciudad = document.getElementById('chkCiudad').value.trim();
+        const city_id = parseInt(document.getElementById('chkCityId').value) || 1;
+        const ref = document.getElementById('chkRef').value.trim();
+
+        if(!nombre || !tel || !dir || !ciudad) {
+          return alert("Para continuar con tu pedido, completa todos los datos de entrega.");
+        }
+
+        const novosDatos = { nombre, tel, dir, ciudad, city_id, ref };
+        datosUsuario.datosEnvio = novosDatos;
+        if(usuarioActual) {
+          await updateDoc(doc(db, "usuarios", usuarioActual.uid), { datosEnvio: novosDatos });
+        }
+
+        modoEdicionCheckout = false;
+        ejecutarPedidoWhatsApp();
+      };
+
+      const btnCancel = document.getElementById('btnCancelarEdicionCheckout');
+      if(btnCancel) {
+        btnCancel.onclick = () => {
+          modoEdicionCheckout = false;
+          renderCheckoutModal();
+        };
+      }
+    }
+  }
+
+  async function ejecutarPedidoWhatsApp() {
+    const env = datosUsuario.datosEnvio || {};
+    const datosEntregaFijos = {
+      nombre: env.nombre || env.tel,
+      telefono: env.tel,
+      direccion: env.dir,
+      ciudad: env.ciudad,
+      city_id: env.city_id || 1,
+      referencia: env.ref || ''
+    };
+
+    let mensaje = "¡Hola FEMA! 👋 Quisiera realizar el siguiente pedido:\n\n";
+    let detallesPedidoArr = [];
+    let granTotal = 0;
+
+    carrito.forEach((item, i) => {
+      const p = PRODUCTOS.find(prod => prod.id === item.prodId);
+      if(p) {
+        const v = (p.variantes && p.variantes[item.aromaIdx]) ? p.variantes[item.aromaIdx] : {};
+        const aromaTxt = v.aroma ? ` (${v.aroma})` : '';
+        const precioOrig = v.precio || p.precioBase || 0;
+        const descVal = v.descuento !== undefined ? v.descuento : (p.descuento || 0);
+        const calc = calcularPrecioFinal(precioOrig, descVal);
+        const subtotal = calc.precioFinal * item.cantidad;
+        granTotal += subtotal;
+
+        mensaje += `${i+1}. *${p.nombre}*${aromaTxt} x${item.cantidad} - ₲ ${subtotal.toLocaleString('es-PY')}\n`;
+        detallesPedidoArr.push({ prodId: p.id, producto: p.nombre, aroma: v.aroma || 'N/A', cantidad: item.cantidad, precioUnitario: calc.precioFinal, subtotal });
+      }
+    });
+
+    mensaje += `\n📍 *DATOS DE ENTREGA:*`;
+    mensaje += `\nNombre: ${datosEntregaFijos.nombre}`;
+    mensaje += `\nTeléfono: ${datosEntregaFijos.telefono}`;
+    mensaje += `\nDirección: ${datosEntregaFijos.direccion}, ${datosEntregaFijos.ciudad}`;
+    if(datosEntregaFijos.referencia) mensaje += `\nRef: ${datosEntregaFijos.referencia}`;
+
+    mensaje += `\n\n💰 *TOTAL A PAGAR:* ₲ ${granTotal.toLocaleString('es-PY')}\n`;
+
+    const pedidoId = "ped_" + Date.now();
+    await setDoc(doc(db, "pedidos", pedidoId), {
+      fecha: new Date().toLocaleString(),
+      estado: "Pendente",
+      estadoEnvio: "No creado",
+      userId: usuarioActual.uid,
+      userEmail: usuarioActual.email,
+      items: detallesPedidoArr,
+      total: granTotal,
+      datosEnvio: datosEntregaFijos,
+      skyPostal_service_id: "",
+      tracking: ""
+    });
+
+    carrito = [];
+    actualizarBadgeCarrito();
+    cerrarOverlay('overlayCheckoutEnvio');
+
+    const urlWA = `https://wa.me/${CONFIG_SITIO.whatsapp}?text=${encodeURIComponent(mensaje)}`;
+    window.open(urlWA, '_blank');
+  }
+
+  // 2. Painel Admin: Gestão de Emails no Firestore (configuracion/emails_notif)
+  function renderEmailsNotif() {
+    const cont = document.getElementById('listaEmailsNotif');
+    if(!cont) return;
+
+    if(EMAILS_NOTIF.length === 0) {
+      cont.innerHTML = `<p style="font-size:12px; color:var(--texto-secundario);">No hay emails registrados.</p>`;
+      return;
+    }
+
+    cont.innerHTML = EMAILS_NOTIF.map((item, idx) => `
+      <div class="email-item-row">
+        <div>
+          <span style="font-size:13px; font-weight:600;">${item.email}</span>
+          <span class="badge-status ${item.activo ? 'activo' : 'inactivo'}" style="margin-left:6px;">
+            ${item.activo ? 'ACTIVO' : 'INACTIVO'}
+          </span>
+        </div>
+        <div class="email-item-actions">
+          <button class="btn-secundario" onclick="toggleStatusEmailNotif(${idx})">
+            ${item.activo ? 'Desactivar' : 'Activar'}
+          </button>
+          <button class="btn-cerrar" onclick="removerEmailNotif(${idx})">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('btnAgregarEmailNotif').addEventListener('click', async () => {
+    const input = document.getElementById('inpNuevoEmailNotif');
+    const mail = input.value.trim().toLowerCase();
+
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!regexEmail.test(mail)) {
+      return alert("Por favor ingresa un correo electrónico válido.");
+    }
+
+    if(EMAILS_NOTIF.some(i => i.email === mail)) {
+      return alert("El correo ya se encuentra en la lista.");
+    }
+
+    EMAILS_NOTIF.push({ email: mail, activo: true });
+    await guardarEmailsFirestore();
+    input.value = "";
+    mostrarToast("Email agregado correctamente");
+  });
+
+  window.toggleStatusEmailNotif = async function(idx) {
+    EMAILS_NOTIF[idx].activo = !EMAILS_NOTIF[idx].activo;
+    await guardarEmailsFirestore();
+  };
+
+  window.removerEmailNotif = async function(idx) {
+    EMAILS_NOTIF.splice(idx, 1);
+    await guardarEmailsFirestore();
+    mostrarToast("Email removido");
+  };
+
+  document.getElementById('btnGuardarRemitente').addEventListener('click', async () => {
+    CONFIG_REMITENTE = {
+      nombre: document.getElementById('cfgRemitenteNome').value.trim(),
+      email: document.getElementById('cfgRemitenteEmail').value.trim()
+    };
+    await guardarEmailsFirestore();
+    mostrarToast("Remitente guardado");
+  });
+
+  async function guardarEmailsFirestore() {
+    await setDoc(doc(db, "configuracion", "emails_notif"), {
+      emails: EMAILS_NOTIF,
+      remitente: CONFIG_REMITENTE
+    });
+  }
+
+  document.getElementById('btnTestarEmailModoProba').addEventListener('click', async () => {
+    try {
+      const activeEmails = EMAILS_NOTIF.filter(e => e.activo).map(e => e.email);
+      if(activeEmails.length === 0) return alert("No hay emails activos para recibir la prueba.");
+
+      const res = await fetch('/api/emails/notificar-pedido', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          destinatarios: activeEmails,
+          pedido: {
+            id: 'TEST_12345',
+            fecha: new Date().toLocaleString(),
+            userEmail: 'cliente_prueba@fema.com',
+            total: 150000,
+            items: [{ producto: 'Producto de Prueba', aroma: 'Estándar', cantidad: 1, subtotal: 150000 }],
+            datosEnvio: { nombre: 'Cliente Prueba', telefono: '0981000000', direccion: 'Calle Falsa 123', ciudad: 'Asunción' }
+          },
+          trackingInfo: { serviceId: 'SP-TEST', tracking: 'TRK-TEST-123', estadoEnvio: 'Confirmado (Prueba)' },
+          fromEmail: CONFIG_REMITENTE.email,
+          fromName: CONFIG_REMITENTE.nombre
+        })
+      });
+
+      const data = await res.json();
+      if(!res.ok) throw new Error(data.error || "Error al enviar email de prueba");
+      mostrarToast("¡Email de prueba enviado exitosamente!");
+    } catch (e) {
+      alert("Error: " + e.message);
+    }
+  });
+
+  // Renderizado del Admin e Detalle del Pedido com Botão de Reenvio Manual
+  function renderPedidosAdmin() {
+    const cont = document.getElementById('listaPedidosAdmin');
+    if(!cont) return;
+    if(PEDIDOS_TODOS.length === 0) {
+      cont.innerHTML = `<p style="font-size:13px; color:var(--texto-secundario);">No hay pedidos en el sistema.</p>`;
+      return;
+    }
+    cont.innerHTML = PEDIDOS_TODOS.map(p => `
+      <div class="tarjeta-pedido">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong>ID: #${p.id}</strong>
+          <span class="badge-estado ${p.estado}">${p.estado}</span>
+        </div>
+        <div style="font-size:12px; color:var(--texto-secundario);">Cliente: ${p.userEmail} | ${p.fecha}</div>
+        <div style="font-weight:700; font-size:13px; color:var(--rojo);">Total: ₲ ${(p.total || 0).toLocaleString('es-PY')}</div>
+        <button class="btn-principal" onclick="verDetallePedidoAdmin('${p.id}')" style="margin-top:6px;">Revisar y Procesar Pedido ➔</button>
+      </div>
+    `).join('');
+  }
+
+  window.verDetallePedidoAdmin = function(pedidoId) {
+    const p = PEDIDOS_TODOS.find(item => item.id === pedidoId);
+    if(!p) return;
+
+    const cont = document.getElementById('cuerpoDetallePedidoAdmin');
+    const env = p.datosEnvio || {};
+
+    let validacionesMsg = [];
+    if(!p.items || p.items.length === 0) validacionesMsg.push("Faltan productos.");
+    if(!p.userEmail) validacionesMsg.push("Falta email del cliente.");
+    if(!env.nombre) validacionesMsg.push("Falta nombre del destinatario.");
+    if(!env.telefono) validacionesMsg.push("Falta teléfono.");
+    if(!env.direccion) validacionesMsg.push("Falta dirección.");
+    if(!env.ciudad) validacionesMsg.push("Falta ciudad de entrega.");
+
+    const sePuedeProcesar = validacionesMsg.length === 0;
+
+    cont.innerHTML = `
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="background:var(--gris-suave); padding:10px; border-radius:8px;">
+          <strong>Cliente:</strong> ${p.userEmail}<br>
+          <strong>ID Pedido:</strong> #${p.id} | <strong>Fecha:</strong> ${p.fecha}
+        </div>
+
+        <h4>Productos</h4>
+        <div style="font-size:12.5px;">
+          ${(p.items || []).map(i => `• ${i.producto} (${i.aroma}) x${i.cantidad} - ₲ ${(i.subtotal||0).toLocaleString('es-PY')}`).join('<br>')}
+        </div>
+        <div style="font-weight:700; font-size:14px; color:var(--rojo);">Total: ₲ ${(p.total || 0).toLocaleString('es-PY')}</div>
+
+        <h4>Datos de Entrega</h4>
+        <div style="font-size:12.5px; background:var(--gris-suave); padding:10px; border-radius:8px;">
+          <strong>Destinatario:</strong> ${env.nombre || '❌ Falta'}<br>
+          <strong>Teléfono:</strong> ${env.telefono || '❌ Falta'}<br>
+          <strong>Dirección:</strong> ${env.direccion || '❌ Falta'}<br>
+          <strong>Ciudad:</strong> ${env.ciudad || '❌ Falta'} (City ID: ${env.city_id || 1})<br>
+          <strong>Ref:</strong> ${env.referencia || 'N/A'}
+        </div>
+
+        <div class="box-envio-info">
+          <strong>📦 Estado Envío SkyPostal:</strong> ${p.estadoEnvio || 'No creado'}<br>
+          <strong>Service ID:</strong> ${p.skyPostal_service_id || 'N/A'}<br>
+          <strong>Tracking:</strong> ${p.tracking || 'N/A'}
+        </div>
+
+        ${!sePuedeProcesar ? `
+          <div style="background:#F8D7DA; color:#721C24; padding:10px; border-radius:8px; font-size:12px;">
+            ❌ <strong>No se puede generar el envío. Falta:</strong><br>
+            ${validacionesMsg.join('<br>')}
+          </div>
+        ` : ''}
+
+        ${p.skyPostal_service_id ? `
+          <button class="btn-secundario" id="btnReenviarEmailManual" style="background:var(--verde); color:#fff; height:40px;">
+            📧 Reenviar Notificación por Email (Manual)
+          </button>
+        ` : `
+          <button class="btn-principal" id="btnProcesarSkyPostal" ${!sePuedeProcesar ? 'disabled style="opacity:0.5;"' : ''}>
+            Aceptar Pedido + Generar Envío
+          </button>
+        `}
+      </div>
+    `;
+
+    abrirOverlay('overlayDetallePedidoAdmin');
+
+    const btnReenvio = document.getElementById('btnReenviarEmailManual');
+    if(btnReenvio) {
+      btnReenvio.onclick = async () => {
+        btnReenvio.disabled = true;
+        btnReenvio.textContent = "Enviando email...";
+        try {
+          const activeEmails = EMAILS_NOTIF.filter(e => e.activo).map(e => e.email);
+          const res = await fetch('/api/emails/notificar-pedido', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              destinatarios: activeEmails,
+              pedido: p,
+              trackingInfo: { serviceId: p.skyPostal_service_id, tracking: p.tracking, estadoEnvio: p.estadoEnvio },
+              fromEmail: CONFIG_REMITENTE.email,
+              fromName: CONFIG_REMITENTE.nombre
+            })
+          });
+          const data = await res.json();
+          if(!res.ok) throw new Error(data.error || "Error reevaluando correo");
+          mostrarToast("¡Email reenviado correctamente!");
+        } catch (e) {
+          alert("Error reeditando correo: " + e.message);
+        } finally {
+          btnReenvio.disabled = false;
+          btnReenvio.textContent = "📧 Reenviar Notificación por Email (Manual)";
+        }
+      };
+    }
+
+    const btnProc = document.getElementById('btnProcesarSkyPostal');
+    if(btnProc && !p.skyPostal_service_id && sePuedeProcesar) {
+      btnProc.onclick = async () => {
+        btnProc.disabled = true;
+        btnProc.textContent = "Procesando con SkyPostal...";
+
+        try {
+          const res = await fetch('/api/skypostal/crear-y-confirmar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pedido: p, origen: SKYPOSTAL_ORIGEN })
+          });
+
+          const data = await res.json();
+          if(!res.ok) throw new Error(data.detalles?.message || data.error || 'Error en SkyPostal');
+
+          const updateObj = {
+            estado: 'Aceptado',
+            estadoEnvio: data.estadoEnvio,
+            skyPostal_service_id: data.serviceId,
+            tracking: data.tracking,
+            fechaConfirmacionEnvio: new Date().toLocaleString()
+          };
+
+          await updateDoc(doc(db, "pedidos", p.id), updateObj);
+
+          try {
+            const activeEmails = EMAILS_NOTIF.filter(e => e.activo).map(e => e.email);
+            await fetch('/api/emails/notificar-pedido', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                destinatarios: activeEmails,
+                pedido: { ...p, ...updateObj },
+                trackingInfo: { serviceId: data.serviceId, tracking: data.tracking, estadoEnvio: data.estadoEnvio },
+                fromEmail: CONFIG_REMITENTE.email,
+                fromName: CONFIG_REMITENTE.nombre
+              })
+            });
+          } catch(eMailErr) {
+            console.error("Fallo el envío de email:", eMailErr);
+            mostrarToast("Pedido aceptado. Error al enviar notificación por mail.");
+          }
+
+          mostrarToast("¡Envío generado y confirmado exitosamente!");
+          cerrarOverlay('overlayDetallePedidoAdmin');
+
+        } catch (err) {
+          alert("Error: " + err.message);
+          btnProc.disabled = false;
+          btnProc.textContent = "Aceptar Pedido + Generar Envío";
+        }
+      };
+    }
+  }
+
+  function renderUserPedidos() {
+    const cont = document.getElementById('listaUserPedidos');
+    if(!cont) return;
+    if(!usuarioActual) {
+      cont.innerHTML = `<p style="font-size:13px; color:var(--texto-secundario);">Inicia sesión para ver tu historial de compras.</p>`;
+      return;
+    }
+    const misPedidos = PEDIDOS_TODOS.filter(p => p.userId === usuarioActual.uid);
+    if(misPedidos.length === 0) {
+      cont.innerHTML = `<p style="font-size:13px; color:var(--texto-secundario);">No tienes pedidos registrados.</p>`;
+      return;
+    }
+
+    cont.innerHTML = misPedidos.map(p => `
+      <div class="tarjeta-pedido">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong>Pedido #${p.id.slice(-6)}</strong>
+          <span class="badge-estado ${p.estado}">${p.estado}</span>
+        </div>
+        <div style="font-size:12px; color:var(--texto-secundario);">Fecha: ${p.fecha}</div>
+        <div style="font-size:12.5px; margin-top:4px;">
+          ${(p.items || []).map(i => `• ${i.producto} (${i.aroma}) x${i.cantidad} - ₲ ${(i.subtotal||0).toLocaleString('es-PY')}`).join('<br>')}
+        </div>
+        
+        ${p.tracking ? `
+          <div class="box-envio-info">
+            📦 <strong>Información de Entrega</strong><br>
+            Transportadora: SkyPostal<br>
+            Estado: ${p.estadoEnvio || 'Servicio Confirmado'}<br>
+            Tracking: ${p.tracking}
+          </div>
+        ` : ''}
+      </div>
+    `).join('');
+  }
+
+  function renderDropdownFavoritos() {
+    const cont = document.getElementById('dropdownListaFavoritos');
+    if(!cont) return;
+    const favsIds = datosUsuario.favoritos || [];
+    const favProds = PRODUCTOS.filter(p => favsIds.includes(p.id));
+
+    if(favProds.length === 0) {
+      cont.innerHTML = `<div class="dropdown-item" style="font-size:12px; color:var(--texto-secundario);">No tienes favoritos guardados.</div>`;
+      return;
+    }
+
+    cont.innerHTML = favProds.map(p => `
+      <div class="dropdown-item" style="justify-content:space-between;">
+        <span style="font-weight:600; font-size:12px;">${p.nombre}</span>
+        <button onclick="quitarFavDirecto('${p.id}')" style="color:var(--rojo); font-size:12px;">✕</button>
+      </div>
+    `).join('');
+  }
+
+  function renderUserFavoritos() {
+    const cont = document.getElementById('gridUserFavoritos');
+    if(!cont) return;
+    const favsIds = datosUsuario.favoritos || [];
+    const favProds = PRODUCTOS.filter(p => favsIds.includes(p.id));
+
+    if(favProds.length === 0) {
+      cont.innerHTML = `<p style="font-size:13px; color:var(--texto-secundario); grid-column:1/-1;">No tienes productos en tu lista de favoritos.</p>`;
+      return;
+    }
+
+    cont.innerHTML = favProds.map(p => `
+      <div class="tarjeta">
+        <div class="media-producto">
+          <img src="${(p.variantes && p.variantes[0] && p.variantes[0].fotoUrl) || 'https://via.placeholder.com/300'}" class="foto-prod">
+        </div>
+        <div class="info-tarjeta">
+          <span class="nombre-producto">${p.nombre}</span>
+          <div class="precio-actual">₲ ${(p.precioBase || 0).toLocaleString('es-PY')}</div>
+          <button class="btn-principal" onclick="quitarFavDirecto('${p.id}')" style="margin-top:8px;">Quitar</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.quitarFavDirecto = async function(id) {
+    if(!usuarioActual) return;
+    let favs = (datosUsuario.favoritos || []).filter(f => f !== id);
+    await updateDoc(doc(db, "usuarios", usuarioActual.uid), { favoritos: favs });
+  };
+
+  function renderBanners() {
+    const cont = document.getElementById('contenedorBanners');
+    const dots = document.getElementById('dotsBanner');
+    if(!cont || !dots) return;
+
+    cont.innerHTML = BANNERS.map((b, i) => `
+      <div class="banner-slide ${i === 0 ? 'activo' : ''}" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('${b.bgUrl || 'https://via.placeholder.com/1200x400'}');">
+        <div class="banner-content">
+          <h2>${b.titulo || ''}</h2>
+          <p>${b.texto || ''}</p>
+          <a href="#" class="btn-banner" onclick="filtrarCatBanner('${b.linkCat || 'todos'}')">${b.btnText || 'Ver Ofertas'}</a>
+        </div>
+      </div>
+    `).join('');
+
+    dots.innerHTML = BANNERS.map((_, i) => `
+      <div class="banner-dot ${i === 0 ? 'activo' : ''}" onclick="setBannerActivo(${i})"></div>
+    `).join('');
+
+    if(bannerInterval) clearInterval(bannerInterval);
+    bannerInterval = setInterval(() => {
+      activeBannerIndex = (activeBannerIndex + 1) % BANNERS.length;
+      setBannerActivo(activeBannerIndex);
+    }, 5000);
+  }
+
+  window.setBannerActivo = function(index) {
+    activeBannerIndex = index;
+    document.querySelectorAll('.banner-slide').forEach((s, i) => s.classList.toggle('activo', i === index));
+    document.querySelectorAll('.banner-dot').forEach((d, i) => d.classList.toggle('activo', i === index));
+  };
+
+  window.filtrarCatBanner = function(catId) {
+    categoriaActiva = catId;
+    renderCategorias();
+    resetLazyGrid();
+  };
+
+  function renderAdminBannersForm() {
+    const cont = document.getElementById('formAdminBanners');
+    if(!cont) return;
+    cont.innerHTML = BANNERS.map((b, i) => `
+      <div style="border:1px solid var(--borde-color); padding:12px; border-radius:8px; margin-bottom:12px;">
+        <h4>Banner #${i+1}</h4>
+        <label>Título</label>
+        <input type="text" class="b-titulo" value="${b.titulo || ''}">
+        <label>Subtítulo / Descripción</label>
+        <input type="text" class="b-texto" value="${b.texto || ''}">
+        <label>Texto del Botón</label>
+        <input type="text" class="b-btntext" value="${b.btnText || ''}">
+        <label>URL Imagen de Fundo</label>
+        <input type="text" class="b-bgurl" value="${b.bgUrl || ''}">
+        <label>Categoría Vinculada</label>
+        <select class="b-cat">
+          ${CATEGORIAS.map(c => `<option value="${c.id}" ${b.linkCat === c.id ? 'selected' : ''}>${c.nombre}</option>`).join('')}
+        </select>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('btnGuardarBanners').addEventListener('click', async () => {
+    const newBanners = [];
+    document.querySelectorAll('#formAdminBanners > div').forEach(div => {
+      newBanners.push({
+        titulo: div.querySelector('.b-titulo').value.trim(),
+        texto: div.querySelector('.b-texto').value.trim(),
+        btnText: div.querySelector('.b-btntext').value.trim(),
+        bgUrl: div.querySelector('.b-bgurl').value.trim(),
+        linkCat: div.querySelector('.b-cat').value
+      });
+    });
+    BANNERS = newBanners;
+    await setDoc(doc(db, "configuracion", "banners"), { items: BANNERS });
+    renderBanners();
+    mostrarToast("¡Banners actualizados con éxito!");
+  });
+
+  function renderNotificacionesMenu() {
+    const cont = document.getElementById('listaNotificaciones');
+    const badge = document.getElementById('badgeNotifCount');
+    if(!cont) return;
+
+    if(NOTIFICACIONES.length === 0) {
+      cont.innerHTML = `<div class="dropdown-item" style="font-size:12px; color:var(--texto-secundario);">No hay notificaciones.</div>`;
+      if(badge) badge.style.display = 'none';
+      return;
+    }
+
+    if(badge) {
+      badge.textContent = NOTIFICACIONES.length;
+      badge.style.display = 'inline-block';
+    }
+
+    cont.innerHTML = NOTIFICACIONES.map(n => `
+      <div class="dropdown-item" onclick="verPopUpNotificacion('${n.id}')">
+        <div>
+          <strong>${n.titulo}</strong>
+          <p style="font-size:11px; color:var(--texto-secundario);">${n.mensaje}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.verPopUpNotificacion = function(id) {
+    const n = NOTIFICACIONES.find(item => item.id === id);
+    if(!n) return;
+    document.getElementById('promoPopUpTitle').textContent = n.titulo;
+    document.getElementById('promoPopUpBody').textContent = n.popUpText || n.mensaje;
+    abrirOverlay('overlayPromoNotif');
+  };
+
+  document.getElementById('btnEnviarNotificacion').addEventListener('click', async () => {
+    const titulo = document.getElementById('notifTitulo').value.trim();
+    const mensaje = document.getElementById('notifMensaje').value.trim();
+    const popUpText = document.getElementById('notifPopUpText').value.trim();
+
+    if(!titulo || !mensaje) return alert("Completa título y mensaje.");
+
+    const notifId = "notif_" + Date.now();
+    await setDoc(doc(db, "notificaciones", notifId), {
+      titulo, mensaje, popUpText, fecha: new Date().toLocaleString()
+    });
+
+    document.getElementById('notifTitulo').value = "";
+    document.getElementById('notifMensaje').value = "";
+    document.getElementById('notifPopUpText').value = "";
+    mostrarToast("¡Notificación enviada!");
+  });
+
+  document.getElementById('btnGuardarPopUp').addEventListener('click', async () => {
+    CONFIG_SITIO.popUpPromo = {
+      activo: document.getElementById('cfgPopUpActivo').checked,
+      titulo: document.getElementById('cfgPopUpTitulo').value.trim(),
+      texto: document.getElementById('cfgPopUpTexto').value.trim(),
+      imgUrl: document.getElementById('cfgPopUpImg').value.trim()
+    };
+    await setDoc(doc(db, "configuracion", "general"), CONFIG_SITIO);
+    mostrarToast("Configuración Pop-Up guardada");
+  });
+
+  document.getElementById('btnAplicarDescMasivo').addEventListener('click', async () => {
+    const pct = parseFloat(document.getElementById('descMasivoPorcentaje').value);
+    const cat = document.getElementById('descMasivoCat').value;
+
+    if(isNaN(pct) || pct < 0 || pct > 100) return alert("Ingresa un porcentaje válido entre 0 y 100.");
+
+    const prodsAfectados = PRODUCTOS.filter(p => cat === "todas" || p.categoria === cat);
+    for(let p of prodsAfectados) {
+      const vars = (p.variantes || []).map(v => ({ ...v, descuento: pct }));
+      await updateDoc(doc(db, "productos", p.id), { descuento: pct, variantes: vars });
+    }
+    mostrarToast(`Descuento del ${pct}% aplicado.`);
+  });
+
+  document.getElementById('btnQuitarDescMasivo').addEventListener('click', async () => {
+    for(let p of PRODUCTOS) {
+      const vars = (p.variantes || []).map(v => ({ ...v, descuento: 0 }));
+      await updateDoc(doc(db, "productos", p.id), { descuento: 0, variantes: vars });
+    }
+    mostrarToast("Se han quitado todos los descuentos.");
+  });
+
+  function cargarSkyPostalOrigenInputs() {
+    document.getElementById('spNombre').value = SKYPOSTAL_ORIGEN.nombre || "";
+    document.getElementById('spTel').value = SKYPOSTAL_ORIGEN.telefono || "";
+    document.getElementById('spEmail').value = SKYPOSTAL_ORIGEN.email || "";
+    document.getElementById('spDir').value = SKYPOSTAL_ORIGEN.direccion || "";
+    document.getElementById('spCiudad').value = SKYPOSTAL_ORIGEN.ciudad || "";
+    document.getElementById('spCityId').value = SKYPOSTAL_ORIGEN.city_id || 1;
+  }
+
+  document.getElementById('btnGuardarSkyPostalOrigen').addEventListener('click', async () => {
+    SKYPOSTAL_ORIGEN = {
+      nombre: document.getElementById('spNombre').value.trim(),
+      telefono: document.getElementById('spTel').value.trim(),
+      email: document.getElementById('spEmail').value.trim(),
+      direccion: document.getElementById('spDir').value.trim(),
+      ciudad: document.getElementById('spCiudad').value.trim(),
+      city_id: parseInt(document.getElementById('spCityId').value) || 1
+    };
+    await setDoc(doc(db, "configuracion", "skypostal_origen"), SKYPOSTAL_ORIGEN);
+    mostrarToast("Datos de Origen SkyPostal guardados");
+  });
+
+  document.getElementById('btnGuardarConfig').addEventListener('click', async () => {
+    CONFIG_SITIO.whatsapp = document.getElementById('cfgWhatsApp').value.trim();
+    await setDoc(doc(db, "configuracion", "general"), CONFIG_SITIO);
+    mostrarToast("Configuración guardada");
+  });
+
+  function renderAdminProductos() {
+    const cont = document.getElementById('listaAdmin');
+    if(!cont) return;
+    cont.innerHTML = PRODUCTOS.map(p => `
+      <div style="border:1px solid var(--borde-color); padding:10px; border-radius:8px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; background:var(--bg-principal);">
+        <div>
+          <strong>${p.nombre}</strong> <small>(${p.categoria})</small>
+          ${p.freteGratis ? `<span style="font-size:10px; color:var(--verde); font-weight:bold; margin-left:6px;">[FRETE GRÁTIS]</span>` : ''}
+        </div>
+        <div>
+          <button class="btn-secundario" onclick="editarProducto('${p.id}')">Editar</button>
+          <button class="btn-secundario" onclick="eliminarProducto('${p.id}')" style="color:var(--rojo);">Eliminar</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('btnNuevoProducto').addEventListener('click', () => {
+    document.getElementById('prodEditId').value = "";
+    document.getElementById('prodNombre').value = "";
+    document.getElementById('prodCategoria').value = "bano";
+    document.getElementById('prodDescripcion').value = "";
+    document.getElementById('prodPrecioBase').value = "";
+    document.getElementById('prodDescuentoBase').value = "";
+    document.getElementById('prodFreteGratis').checked = false;
+    document.getElementById('contenedorVariantesForm').innerHTML = "";
+    document.getElementById('tituloFormProd').textContent = "Nuevo Producto";
+    abrirOverlay('overlayFormProducto');
+  });
+
+  document.getElementById('btnAddVarianteForm').addEventListener('click', () => addVarianteFormRow());
+
+  function addVarianteFormRow(data = {}) {
+    const cont = document.getElementById('contenedorVariantesForm');
+    const div = document.createElement('div');
+    div.style.cssText = "border:1px solid var(--borde-color); padding:10px; border-radius:8px; margin-bottom:8px; background:var(--gris-suave);";
+    div.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+        <strong style="font-size:12px;">Variación</strong>
+        <button type="button" class="btn-cerrar" style="width:22px; height:22px; font-size:12px;" onclick="this.parentElement.parentElement.remove()">✕</button>
+      </div>
+      <input type="text" class="v-aroma" placeholder="Aroma / Tamaño (Ej: Lavanda 5L)" value="${data.aroma || ''}">
+      <input type="number" class="v-precio" placeholder="Precio (₲)" value="${data.precio || ''}">
+      <input type="number" class="v-descuento" placeholder="Descuento %" value="${data.descuento || ''}">
+      <input type="text" class="v-foto" placeholder="URL Foto Imagen" value="${data.fotoUrl || ''}">
+      <textarea class="v-desc" rows="2" placeholder="Descripción corta de esta variante...">${data.descripcion || ''}</textarea>
+    `;
+    cont.appendChild(div);
+  }
+
+  window.editarProducto = function(id) {
+    const p = PRODUCTOS.find(item => item.id === id);
+    if(!p) return;
+    document.getElementById('prodEditId').value = p.id;
+    document.getElementById('prodNombre').value = p.nombre || "";
+    document.getElementById('prodCategoria').value = p.categoria || "bano";
+    document.getElementById('prodDescripcion').value = p.descripcion || "";
+    document.getElementById('prodPrecioBase').value = p.precioBase || "";
+    document.getElementById('prodDescuentoBase').value = p.descuento || "";
+    document.getElementById('prodFreteGratis').checked = p.freteGratis || false;
+
+    const cont = document.getElementById('contenedorVariantesForm');
+    cont.innerHTML = "";
+    if(p.variantes && p.variantes.length > 0) {
+      p.variantes.forEach(v => addVarianteFormRow(v));
+    }
+    document.getElementById('tituloFormProd').textContent = "Editar Producto";
+    abrirOverlay('overlayFormProducto');
+  };
+
+  window.eliminarProducto = async function(id) {
+    if(confirm("¿Estás seguro de eliminar este producto?")) {
+      await deleteDoc(doc(db, "productos", id));
+      mostrarToast("Producto eliminado");
+    }
+  };
+
+  document.getElementById('btnGuardarProducto').addEventListener('click', async () => {
+    const editId = document.getElementById('prodEditId').value;
+    const nombre = document.getElementById('prodNombre').value.trim();
+    const categoria = document.getElementById('prodCategoria').value;
+    const descripcion = document.getElementById('prodDescripcion').value.trim();
+    const precioBase = parseFloat(document.getElementById('prodPrecioBase').value) || 0;
+    const descuentoBase = parseFloat(document.getElementById('prodDescuentoBase').value) || 0;
+    const freteGratis = document.getElementById('prodFreteGratis').checked;
+
+    const varDivs = document.querySelectorAll('#contenedorVariantesForm > div');
+    const variantes = [];
+    varDivs.forEach(d => {
+      variantes.push({
+        aroma: d.querySelector('.v-aroma').value.trim(),
+        precio: parseFloat(d.querySelector('.v-precio').value) || precioBase,
+        descuento: parseFloat(d.querySelector('.v-descuento').value) || descuentoBase,
+        fotoUrl: d.querySelector('.v-foto').value.trim(),
+        descripcion: d.querySelector('.v-desc').value.trim()
+      });
+    });
+
+    if(!nombre) return alert("Ingresa el nombre del producto.");
+
+    const pData = { nombre, categoria, descripcion, precioBase, descuento: descuentoBase, freteGratis, variantes };
+
+    if(editId) {
+      await updateDoc(doc(db, "productos", editId), pData);
+      mostrarToast("Producto actualizado");
+    } else {
+      const newRef = doc(collection(db, "productos"));
+      await setDoc(newRef, pData);
+      mostrarToast("Producto creado");
+    }
+
+    cerrarOverlay('overlayFormProducto');
+  });
+</script>
+</body>
+</html>
